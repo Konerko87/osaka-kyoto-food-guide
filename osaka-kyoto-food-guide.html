@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>大阪京都女子旅美食地圖</title>
+  <title>大阪京都女子旅美食景點地圖</title>
   <link rel="preconnect" href="https://unpkg.com">
   <link rel="preconnect" href="https://commons.wikimedia.org">
   <link rel="preconnect" href="https://tile.openstreetmap.org">
@@ -431,8 +431,131 @@
     }
 
     .food-card.is-hidden,
+    .attraction-card.is-hidden,
     .map-item.is-hidden {
       display: none;
+    }
+
+    .spotlight {
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      align-items: stretch;
+      margin: 12px 0 22px;
+    }
+
+    .spotlight-media {
+      min-height: 430px;
+      background: #eee;
+    }
+
+    .spotlight-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .spotlight-copy {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .spotlight-copy h3 {
+      margin: 0;
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .spotlight-copy p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .feature-pill {
+      min-height: 108px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .feature-pill b {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 6px;
+    }
+
+    .feature-pill span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .attraction-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(39, 31, 26, .08);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .spot-block {
+      display: grid;
+      gap: 8px;
+    }
+
+    .spot-block b {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #3d312b;
+      font-size: 14px;
+    }
+
+    .spot-block span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .gemini-panel {
+      margin: 38px 0;
+      padding: 24px;
+    }
+
+    .gemini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .gemini-day {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .gemini-day h3 {
+      margin: 8px 0 12px;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .gemini-day .timeline {
+      gap: 8px;
     }
 
     .photo-wrap {
@@ -524,6 +647,8 @@
     .pill-button svg,
     .filter svg,
     .route-day svg,
+    .feature-pill svg,
+    .spot-block svg,
     .card-actions svg {
       width: 16px;
       height: 16px;
@@ -692,7 +817,10 @@
       .route-strip,
       .route-days,
       .map-layout,
-      .city-break {
+      .city-break,
+      .spotlight,
+      .feature-list,
+      .gemini-grid {
         grid-template-columns: 1fr;
       }
 
@@ -765,7 +893,8 @@
       }
 
       .panel,
-      .food-card {
+      .food-card,
+      .attraction-card {
         box-shadow: none;
         break-inside: avoid;
       }
@@ -796,24 +925,25 @@
       <nav class="nav" aria-label="頁面操作">
         <a class="brand" href="#top" aria-label="大阪京都美食地圖">
           <span class="brand-mark"><i data-lucide="map-pin"></i></span>
-          <span>Osaka Kyoto Food Map</span>
+          <span>Osaka Kyoto Sweet Trip</span>
         </a>
         <div class="nav-actions">
           <a class="pill-button" href="#map-section"><i data-lucide="map"></i>看地圖</a>
+          <a class="pill-button" href="#attractions"><i data-lucide="sparkles"></i>看景點</a>
           <a class="pill-button" href="#food-cards"><i data-lucide="utensils"></i>看清單</a>
           <button class="pill-button" type="button" onclick="window.print()"><i data-lucide="printer"></i>列印</button>
         </div>
       </nav>
 
       <section class="hero-content" id="top">
-        <div class="eyebrow"><i data-lucide="sparkles"></i>女子旅友善・實景圖片・互動地圖</div>
-        <h1>大阪京都美食推薦地圖</h1>
-        <p class="hero-copy">把「逛街順路、好拍、可分食、排隊值得」放在前面，整理成大阪難波與京都河原町/祇園一條線就能吃完的 8 個點。</p>
+        <div class="eyebrow"><i data-lucide="sparkles"></i>30歲雙子座甜美女子・美食・景點・互動地圖</div>
+        <h1>大阪京都甜美玩食地圖</h1>
+        <p class="hero-copy">把「變化感、好拍照、甜點補給、勝運祈願、夜景收尾」放進同一份行程，適合 30 歲、雙子座、愛漂亮也愛新鮮感的女生玩。</p>
         <div class="hero-stats" aria-label="行程摘要">
           <div class="stat"><strong>8</strong><span>個實用美食點</span></div>
-          <div class="stat"><strong>2</strong><span>條散步路線</span></div>
+          <div class="stat"><strong>8</strong><span>個必玩景點</span></div>
           <div class="stat"><strong>1</strong><span>張互動地圖</span></div>
-          <div class="stat"><strong>¥700+</strong><span>小吃甜點起</span></div>
+          <div class="stat"><strong>3日</strong><span>甜美女子行程</span></div>
         </div>
       </section>
     </div>
@@ -823,28 +953,28 @@
     <div class="shell route-strip">
       <div class="panel route-summary">
         <span class="section-kicker"><i data-lucide="route"></i>推薦走法</span>
-        <h2>白天京都抹茶，晚上大阪難波</h2>
-        <p>京都適合安排成「茶舖、錦市場、河原町、祇園甜點」的慢走路線；大阪則集中在難波、千日前、戎橋筋，晚餐後還能拍道頓堀夜景。</p>
+        <h2>先許願、再拍照，晚上用甜點和夜景收尾</h2>
+        <p>雙子座行程不能單調：大阪安排勝尾寺達摩祈願、梅田夜景、道頓堀霓虹；京都安排清水寺、伏見稻荷、嵐山、祇園，途中穿插抹茶與市場小食。</p>
         <div class="route-days">
           <div class="route-day">
             <strong><i data-lucide="train-front"></i>大阪半日線</strong>
-            <small>わなか章魚燒 → 味乃家大阪燒 → 551豚まん → Rikuro 起司蛋糕</small>
+            <small>勝尾寺 → 梅田藍天大廈 → 道頓堀 → わなか / 味乃家 / Rikuro</small>
           </div>
           <div class="route-day">
             <strong><i data-lucide="leaf"></i>京都半日線</strong>
-            <small>一保堂茶舖 → 錦市場 → MACCHA HOUSE → 祇園茶寮都路里</small>
+            <small>清水寺 → 錦市場 → 祇園 → MACCHA HOUSE / 茶寮都路里</small>
           </div>
         </div>
       </div>
 
       <aside class="panel smart-note" aria-label="旅行提醒">
         <div class="note-row">
-          <b>排隊策略</b>
-          <span>人氣店避開 12:00-13:30、18:00-19:30；甜點店下午人最多，開店或晚餐前較穩。</span>
+          <b>雙子座玩法</b>
+          <span>每半天安排一個「主場景」加一個甜點/小吃，不做寺社連發，保持新鮮感。</span>
         </div>
         <div class="note-row">
           <b>女生友善</b>
-          <span>都選在車站、商店街、市場、觀光街區附近，夜間移動也以熱鬧區域為主。</span>
+          <span>夜間點位以梅田、難波、祇園、河原町等熱鬧區為主；勝尾寺與嵐山放白天。</span>
         </div>
         <div class="note-row">
           <b>禮貌提醒</b>
@@ -859,8 +989,8 @@
       <div class="toolbar">
         <div>
           <span class="section-kicker"><i data-lucide="map-pinned"></i>Map</span>
-          <h2 id="map-title">美食地圖</h2>
-          <p class="section-lead">點地圖或右側清單可定位店家；篩選後地圖會只顯示該城市。</p>
+          <h2 id="map-title">美食與景點地圖</h2>
+          <p class="section-lead">點地圖或右側清單可定位店家與景點；篩選後地圖會只顯示該城市。</p>
         </div>
         <div class="filters" aria-label="城市篩選">
           <button class="filter" type="button" data-filter="all" aria-pressed="true"><i data-lucide="layout-grid"></i>全部</button>
@@ -870,8 +1000,8 @@
       </div>
 
       <div class="map-layout">
-        <div id="map" role="img" aria-label="大阪京都美食互動地圖"></div>
-        <div class="map-list" id="map-list" aria-label="店家列表"></div>
+        <div id="map" role="img" aria-label="大阪京都美食景點互動地圖"></div>
+        <div class="map-list" id="map-list" aria-label="店家與景點列表"></div>
       </div>
     </section>
 
@@ -893,6 +1023,82 @@
           <li><time>12:00</time><div><strong>錦市場</strong><span>挑豆乳甜甜圈、玉子燒、漬物小食。</span></div></li>
           <li><time>15:30</time><div><strong>MACCHA HOUSE / 都路里</strong><span>甜點收尾，再散步到祇園。</span></div></li>
         </ul>
+      </div>
+    </section>
+
+    <section id="attractions" aria-labelledby="attractions-title">
+      <div class="toolbar">
+        <div>
+          <span class="section-kicker"><i data-lucide="sparkles"></i>Sweet Gemini Spots</span>
+          <h2 id="attractions-title">8 個適合 30 歲雙子座甜美女子的景點</h2>
+          <p class="section-lead">節奏設計成「祈願、拍照、散步、購物、夜景」輪替，避免一整天都在看同類景點。</p>
+        </div>
+      </div>
+
+      <article class="panel spotlight">
+        <div class="spotlight-media">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Katsuo-ji%20daruma.jpg?width=1400" alt="勝尾寺達摩景觀" loading="lazy">
+        </div>
+        <div class="spotlight-copy">
+          <span class="section-kicker"><i data-lucide="trophy"></i>必放主景點</span>
+          <h3>勝尾寺：給甜美女子的勝運達摩任務</h3>
+          <p>勝尾寺位於大阪箕面山區，以「勝運之寺」與滿寺達摩聞名。這裡不只適合考試、工作、戀愛或人生轉運祈願，紅色達摩也非常上鏡，對雙子座來說剛好有「任務感 + 拍照感 + 山林感」三個變化。</p>
+          <div class="feature-list">
+            <div class="feature-pill">
+              <b><i data-lucide="badge-check"></i>必玩</b>
+              <span>買小達摩、寫下願望，找一個可愛角落拍「勝運認證照」。</span>
+            </div>
+            <div class="feature-pill">
+              <b><i data-lucide="clock"></i>時間</b>
+              <span>平日/日祝約 8:00-17:00，週六約 8:00-18:00；大人入山約 ¥500。</span>
+            </div>
+            <div class="feature-pill">
+              <b><i data-lucide="triangle-alert"></i>注意</b>
+              <span>從箕面萱野站搭巴士約 20 分；假日自駕停車可能需要事前預約，建議搭大眾交通。</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="action-link primary" href="https://www.google.com/maps/search/?api=1&query=Katsuoji%20Temple%20Osaka" target="_blank" rel="noopener"><i data-lucide="navigation"></i>地圖</a>
+            <a class="action-link" href="https://katsuo-ji-temple.or.jp/" target="_blank" rel="noopener"><i data-lucide="external-link"></i>官網</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="cards-grid" id="attraction-grid"></div>
+    </section>
+
+    <section class="panel gemini-panel" aria-labelledby="gemini-title">
+      <span class="section-kicker"><i data-lucide="stars"></i>Gemini 30</span>
+      <h2 id="gemini-title">3 天甜美女子行程</h2>
+      <p class="section-lead">核心邏輯：早上拍乾淨照片，中午吃好吃的，下午換場景，晚上用夜景或甜點收尾。行李與鞋子要以好走為主。</p>
+      <div class="gemini-grid">
+        <div class="gemini-day">
+          <span class="section-kicker"><i data-lucide="sun"></i>Day 1 Osaka</span>
+          <h3>勝運祈願 + 難波夜拍</h3>
+          <ul class="timeline">
+            <li><time>09:00</time><div><strong>勝尾寺</strong><span>達摩任務、山林拍照、買御守。</span></div></li>
+            <li><time>15:30</time><div><strong>梅田藍天大廈</strong><span>夕陽到夜景，裙裝拍照最亮。</span></div></li>
+            <li><time>19:00</time><div><strong>道頓堀 + 難波美食</strong><span>章魚燒、大阪燒、起司蛋糕收尾。</span></div></li>
+          </ul>
+        </div>
+        <div class="gemini-day">
+          <span class="section-kicker"><i data-lucide="camera"></i>Day 2 Kyoto East</span>
+          <h3>清水寺 + 抹茶 + 祇園</h3>
+          <ul class="timeline">
+            <li><time>08:30</time><div><strong>清水寺</strong><span>早到避人潮，二年坂三年坂慢拍。</span></div></li>
+            <li><time>12:00</time><div><strong>錦市場 / 河原町</strong><span>小食巡禮，再補 MACCHA HOUSE。</span></div></li>
+            <li><time>17:00</time><div><strong>祇園花見小路</strong><span>傍晚光線柔，接茶寮都路里甜點。</span></div></li>
+          </ul>
+        </div>
+        <div class="gemini-day">
+          <span class="section-kicker"><i data-lucide="leaf"></i>Day 3 Kyoto West</span>
+          <h3>鳥居、竹林與藝術夜</h3>
+          <ul class="timeline">
+            <li><time>07:30</time><div><strong>伏見稻荷</strong><span>早起拍千本鳥居，人少畫面乾淨。</span></div></li>
+            <li><time>11:30</time><div><strong>嵐山</strong><span>竹林、渡月橋、咖啡散步，不把行程塞滿。</span></div></li>
+            <li><time>19:00</time><div><strong>teamLab 大阪長居</strong><span>想要更夢幻的收尾，就排夜間光影展。</span></div></li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -919,7 +1125,15 @@
       <a href="https://global.ippodo-tea.co.jp/pages/store-kyoto" target="_blank" rel="noopener">一保堂茶舖官方資訊</a>、
       <a href="https://www.kyoto-nishiki.or.jp/wp-content/themes/kyoto-nishiki/assets/pdf/nishiki-map_240414-en.pdf" target="_blank" rel="noopener">錦市場官方英文地圖/守則</a>、
       <a href="https://www.gltjp.com/en/directory/item/13393/" target="_blank" rel="noopener">わなか千日前本店資訊</a>。
-      圖片包含 Wikimedia Commons 與店家公開圖片；互動地圖使用 OpenStreetMap 圖資。
+      景點資訊參考
+      <a href="https://katsuo-ji-temple.or.jp/" target="_blank" rel="noopener">勝尾寺官方網站</a>、
+      <a href="https://www.kiyomizudera.or.jp/" target="_blank" rel="noopener">清水寺官方網站</a>、
+      <a href="https://inari.jp/" target="_blank" rel="noopener">伏見稻荷大社官方網站</a>、
+      <a href="https://www.skybldg.co.jp/" target="_blank" rel="noopener">梅田藍天大廈官方網站</a>、
+      <a href="https://www.teamlab.art/e/botanicalgarden/" target="_blank" rel="noopener">teamLab Botanical Garden Osaka</a>、
+      <a href="https://osaka-info.jp/en/" target="_blank" rel="noopener">大阪官方觀光資訊</a>、
+      <a href="https://kyoto.travel/en/" target="_blank" rel="noopener">京都官方觀光資訊</a>。
+      圖片包含 Wikimedia Commons、店家公開圖片與景點公開資訊圖片；互動地圖使用 OpenStreetMap 圖資。
     </section>
   </main>
 
@@ -1088,13 +1302,157 @@
       }
     ];
 
+    const attractions = [
+      {
+        id: "katsuoji",
+        city: "osaka",
+        cityLabel: "大阪",
+        category: "勝運祈願",
+        name: "勝尾寺",
+        subtitle: "達摩、山林、轉運感一次到位",
+        intro: "大阪箕面山區的勝運之寺，滿寺小達摩很有記憶點，是這份行程最推薦放進去的主景點。",
+        must: "買小達摩、抽籤、拍達摩牆和山門，替工作、感情或新階段設定一個可愛勝運任務。",
+        attention: "平日/日祝約 8:00-17:00、週六約 8:00-18:00；從箕面萱野站搭巴士約 20 分，假日自駕停車可能需預約。",
+        address: "2914-1 Aomatani, Minoh, Osaka",
+        lat: 34.86578,
+        lng: 135.49187,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Katsuo-ji%20daruma.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Katsuoji%20Temple%20Osaka",
+        official: "https://katsuo-ji-temple.or.jp/"
+      },
+      {
+        id: "umeda-sky",
+        city: "osaka",
+        cityLabel: "大阪",
+        category: "夜景",
+        name: "梅田藍天大廈 空中庭園",
+        subtitle: "夕陽、夜景、都會感照片",
+        intro: "大阪市區最適合安排日落到夜景的點，適合穿亮色洋裝或外套拍都會感照片。",
+        must: "16:30 前後上樓，從夕陽、藍調到夜景連續拍；天氣好時先拍戶外展望台。",
+        attention: "高空風大，髮型和裙擺要顧；熱門日落時段建議先查票與營業時間。",
+        address: "1-1-88 Oyodonaka, Kita-ku, Osaka",
+        lat: 34.70528,
+        lng: 135.48966,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Umeda%20Sky%20Building%20201807.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Umeda%20Sky%20Building%20Kuchu%20Teien%20Observatory",
+        official: "https://www.skybldg.co.jp/"
+      },
+      {
+        id: "dotonbori",
+        city: "osaka",
+        cityLabel: "大阪",
+        category: "夜拍美食",
+        name: "道頓堀 / 心齋橋",
+        subtitle: "大阪霓虹、跑跑人、夜間小吃",
+        intro: "大阪最有能量的夜間街區，適合雙子座晚餐後繼續散步、買藥妝、拍招牌。",
+        must: "拍固力果跑跑人、道頓堀川、蟹道樂招牌，再接章魚燒或起司蛋糕。",
+        attention: "晚上人潮密集，包包背前面；橋上不要久站擋路，拍完就移動。",
+        address: "Dotonbori, Chuo-ku, Osaka",
+        lat: 34.66874,
+        lng: 135.50105,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Dotonbori%20Street%20at%20Night.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Dotonbori%20Osaka",
+        official: "https://osaka-info.jp/en/spot/dotonbori/"
+      },
+      {
+        id: "teamlab",
+        city: "osaka",
+        cityLabel: "大阪",
+        category: "夢幻夜遊",
+        name: "teamLab Botanical Garden Osaka",
+        subtitle: "夜間光影、很好拍的收尾",
+        intro: "長居植物園夜間光影展，適合想要比一般夜景更夢幻的女生行程。",
+        must: "穿白色、米色或淺色系最吃光；手機開夜景模式，拍慢走背影和光影裝置。",
+        attention: "戶外夜間展會受天候影響，門票、開放日與時間出發前要查；建議穿好走鞋。",
+        address: "Nagai Botanical Garden, Higashisumiyoshi-ku, Osaka",
+        lat: 34.60905,
+        lng: 135.51739,
+        image: "https://static.gltjp.com/glt/data/directory/17000/16894/20250509_192150_15ad5b56_w1920.webp",
+        map: "https://www.google.com/maps/search/?api=1&query=teamLab%20Botanical%20Garden%20Osaka",
+        official: "https://www.teamlab.art/e/botanicalgarden/"
+      },
+      {
+        id: "kiyomizu",
+        city: "kyoto",
+        cityLabel: "京都",
+        category: "京都經典",
+        name: "清水寺 + 二年坂三年坂",
+        subtitle: "和服、坡道、京都感照片",
+        intro: "京都最經典的拍照路線，木舞台、石板坡道、町家街景都很適合甜美風。",
+        must: "早上先拍清水舞台，再走二年坂三年坂；想穿和服就把這段放第一站。",
+        attention: "坡道和階梯多，鞋子要穩；租和服不要把當天塞太滿，避免走到崩潰。",
+        address: "1-294 Kiyomizu, Higashiyama-ku, Kyoto",
+        lat: 34.99486,
+        lng: 135.78505,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kiyomizu-dera%2C%20Kyoto%2C%20Japan%20%2848923900762%29.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera%20Kyoto",
+        official: "https://www.kiyomizudera.or.jp/"
+      },
+      {
+        id: "fushimi",
+        city: "kyoto",
+        cityLabel: "京都",
+        category: "鳥居拍照",
+        name: "伏見稻荷大社",
+        subtitle: "千本鳥居、商運祈願、早晨散步",
+        intro: "千本鳥居是京都辨識度最高的畫面之一，早起去才能拍到乾淨照片。",
+        must: "7:30-8:30 抵達，先拍鳥居，再走到人少的上坡段；狐狸繪馬也很可愛。",
+        attention: "山路會越走越長，不需要硬攻頂；鳥居通道窄，拍照不要停在通道中央太久。",
+        address: "68 Fukakusa Yabunouchi-cho, Fushimi-ku, Kyoto",
+        lat: 34.96714,
+        lng: 135.77267,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Torii%20path%20with%20lantern%20at%20Fushimi%20Inari%20Taisha%20Shrine%2C%20Kyoto%2C%20Japan.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Fushimi%20Inari%20Taisha%20Kyoto",
+        official: "https://inari.jp/"
+      },
+      {
+        id: "arashiyama",
+        city: "kyoto",
+        cityLabel: "京都",
+        category: "自然散步",
+        name: "嵐山竹林 + 渡月橋",
+        subtitle: "竹林、河景、慢節奏咖啡",
+        intro: "行程中需要一段自然感，嵐山適合放在第三天，讓前兩天的城市節奏降下來。",
+        must: "早上走竹林小徑，中午到渡月橋邊吃甜點或咖啡，照片色調會很乾淨。",
+        attention: "竹林人潮很早就上來，想拍空景要早到；嵐山範圍大，不要貪太多點。",
+        address: "Sagatenryuji Tateishicho, Ukyo-ku, Kyoto",
+        lat: 35.01714,
+        lng: 135.67106,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Arashiyama%20Bamboo%20Grove.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Arashiyama%20Bamboo%20Grove%20Kyoto",
+        official: "https://kyoto.travel/en/other_attractions/356.html"
+      },
+      {
+        id: "gion",
+        city: "kyoto",
+        cityLabel: "京都",
+        category: "傍晚散步",
+        name: "祇園花見小路 / 八坂神社",
+        subtitle: "傍晚町家、甜點、夜間神社",
+        intro: "祇園適合放在京都傍晚，從茶寮都路里甜點接花見小路與八坂神社最順。",
+        must: "傍晚拍町家街景，吃抹茶聖代後走到八坂神社，夜間燈光比白天更溫柔。",
+        attention: "花見小路周邊有私人道路與攝影限制，不追拍藝舞妓，不闖入店家門口。",
+        address: "Gionmachi Minamigawa, Higashiyama-ku, Kyoto",
+        lat: 35.00368,
+        lng: 135.77508,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Hanamikoji-dori.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Hanamikoji%20Street%20Gion%20Kyoto",
+        official: "https://kyoto.travel/en/other_attractions/181.html"
+      }
+    ];
+
     const cityColors = {
       osaka: "#d85f50",
       kyoto: "#5f7f50"
     };
 
     const cardsGrid = document.querySelector("#cards-grid");
+    const attractionGrid = document.querySelector("#attraction-grid");
     const mapList = document.querySelector("#map-list");
+    const mapEntries = [
+      ...attractions.map((item) => ({ ...item, kind: "spot", markerLabel: "S", detail: item.must })),
+      ...places.map((item) => ({ ...item, kind: "food", markerLabel: "F", detail: item.dish }))
+    ];
 
     function metaRow(icon, text) {
       return `<span><i data-lucide="${icon}"></i>${text}</span>`;
@@ -1130,16 +1488,53 @@
       `).join("");
     }
 
+    function renderAttractions() {
+      attractionGrid.innerHTML = attractions.map((spot) => `
+        <article class="attraction-card" data-city="${spot.city}" id="spot-${spot.id}">
+          <div class="photo-wrap">
+            <img src="${spot.image}" alt="${spot.name}：${spot.subtitle}" loading="lazy">
+            <div class="tag-row">
+              <span class="tag">${spot.cityLabel}</span>
+              <span class="tag">${spot.category}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>
+              <h3 class="card-title">${spot.name}</h3>
+              <p class="card-subtitle">${spot.subtitle}</p>
+            </div>
+            <div class="highlight">${spot.intro}</div>
+            <div class="spot-block">
+              <b><i data-lucide="badge-check"></i>必玩</b>
+              <span>${spot.must}</span>
+            </div>
+            <div class="spot-block">
+              <b><i data-lucide="triangle-alert"></i>注意事項</b>
+              <span>${spot.attention}</span>
+            </div>
+            <div class="meta">
+              ${metaRow("map-pin", spot.address)}
+            </div>
+            <div class="card-actions">
+              <a class="action-link primary" href="${spot.map}" target="_blank" rel="noopener"><i data-lucide="navigation"></i>地圖</a>
+              <a class="action-link" href="${spot.official}" target="_blank" rel="noopener"><i data-lucide="external-link"></i>官網</a>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
     function renderMapList() {
-      mapList.innerHTML = places.map((place) => `
-        <button class="map-item" type="button" data-city="${place.city}" data-id="${place.id}">
-          <span class="map-item-title"><span><span class="city-dot ${place.city}"></span> ${place.zhName}</span><i data-lucide="locate-fixed"></i></span>
-          <small>${place.type} / ${place.address}</small>
+      mapList.innerHTML = mapEntries.map((item) => `
+        <button class="map-item" type="button" data-city="${item.city}" data-id="${item.id}">
+          <span class="map-item-title"><span><span class="city-dot ${item.city}"></span> ${item.kind === "food" ? item.zhName : item.name}</span><i data-lucide="locate-fixed"></i></span>
+          <small>${item.kind === "food" ? "美食" : "景點"} / ${item.kind === "food" ? item.type : item.category} / ${item.address}</small>
         </button>
       `).join("");
     }
 
     renderCards();
+    renderAttractions();
     renderMapList();
 
     const map = L.map("map", {
@@ -1154,33 +1549,33 @@
     const markers = new Map();
     const markerGroup = L.layerGroup().addTo(map);
 
-    function createMarker(place) {
+    function createMarker(item) {
       const icon = L.divIcon({
         className: "",
-        html: `<span style="display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:${cityColors[place.city]};color:white;border:2px solid white;box-shadow:0 8px 18px rgba(0,0,0,.25);font-weight:900;">${place.city === "osaka" ? "O" : "K"}</span>`,
+        html: `<span style="display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:${cityColors[item.city]};color:white;border:2px solid white;box-shadow:0 8px 18px rgba(0,0,0,.25);font-weight:900;">${item.markerLabel}</span>`,
         iconSize: [28, 28],
         iconAnchor: [14, 28],
         popupAnchor: [0, -26]
       });
 
-      const marker = L.marker([place.lat, place.lng], { icon })
+      const marker = L.marker([item.lat, item.lng], { icon })
         .bindPopup(`
-          <div class="popup-title">${place.zhName}</div>
-          <div class="popup-body">${place.dish}<br>${place.address}</div>
-          <a class="popup-link" href="${place.map}" target="_blank" rel="noopener">Google Maps</a>
+          <div class="popup-title">${item.kind === "food" ? item.zhName : item.name}</div>
+          <div class="popup-body">${item.detail}<br>${item.address}</div>
+          <a class="popup-link" href="${item.map}" target="_blank" rel="noopener">Google Maps</a>
         `);
-      marker.on("click", () => setActivePlace(place.id, false));
+      marker.on("click", () => setActivePlace(item.id, false));
       return marker;
     }
 
-    places.forEach((place) => {
-      const marker = createMarker(place);
-      markers.set(place.id, marker);
+    mapEntries.forEach((item) => {
+      const marker = createMarker(item);
+      markers.set(item.id, marker);
       markerGroup.addLayer(marker);
     });
 
     function visiblePlaces(filter) {
-      return filter === "all" ? places : places.filter((place) => place.city === filter);
+      return filter === "all" ? mapEntries : mapEntries.filter((item) => item.city === filter);
     }
 
     function fitMap(filter) {
@@ -1194,7 +1589,7 @@
         button.setAttribute("aria-pressed", String(button.dataset.filter === filter));
       });
 
-      document.querySelectorAll(".food-card, .map-item").forEach((element) => {
+      document.querySelectorAll(".food-card, .attraction-card, .map-item").forEach((element) => {
         const shouldShow = filter === "all" || element.dataset.city === filter;
         element.classList.toggle("is-hidden", !shouldShow);
       });
@@ -1208,7 +1603,7 @@
       document.querySelectorAll(".map-item").forEach((item) => {
         item.classList.toggle("is-active", item.dataset.id === id);
       });
-      const place = places.find((item) => item.id === id);
+      const place = mapEntries.find((item) => item.id === id);
       const marker = markers.get(id);
       if (!place || !marker) return;
       if (pan) map.flyTo([place.lat, place.lng], 15, { duration: .65 });
@@ -1224,7 +1619,7 @@
     });
 
     fitMap("all");
-    setActivePlace("wanaka", false);
+    setActivePlace("katsuoji", false);
     lucide.createIcons();
   </script>
 </body>
