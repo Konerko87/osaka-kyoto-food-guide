@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>大阪京都女子旅美食景點地圖</title>
+  <title>大阪京都七天生日女子旅美食景點地圖</title>
   <link rel="preconnect" href="https://unpkg.com">
   <link rel="preconnect" href="https://commons.wikimedia.org">
   <link rel="preconnect" href="https://tile.openstreetmap.org">
@@ -558,6 +558,139 @@
       gap: 8px;
     }
 
+    .birthday-board {
+      margin: 38px 0;
+      padding: 24px;
+      background:
+        linear-gradient(135deg, rgba(245, 170, 160, .28), rgba(217, 185, 110, .18)),
+        rgba(255, 255, 255, .9);
+    }
+
+    .birthday-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .birthday-day {
+      min-width: 150px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .birthday-day.is-birthday {
+      border-color: rgba(216, 95, 80, .7);
+      background: #fff3ec;
+      box-shadow: 0 12px 28px rgba(216, 95, 80, .16);
+    }
+
+    .birthday-day time {
+      color: var(--coral);
+      font-weight: 900;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .birthday-day h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .birthday-day p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .planner-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .planner-card,
+    .souvenir-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(39, 31, 26, .07);
+    }
+
+    .planner-card.is-birthday {
+      border-color: rgba(216, 95, 80, .6);
+      background: linear-gradient(180deg, #fff7f2, #fff);
+    }
+
+    .planner-card h3,
+    .souvenir-card h3 {
+      margin: 7px 0 10px;
+      font-size: 22px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .day-flow {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .day-flow li {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .day-flow li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .day-flow time {
+      color: var(--coral);
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .day-flow b {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .day-flow span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .souvenir-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .souvenir-meta {
+      color: var(--muted);
+      font-size: 14px;
+      display: grid;
+      gap: 7px;
+    }
+
     .photo-wrap {
       position: relative;
       aspect-ratio: 4 / 3;
@@ -820,7 +953,9 @@
       .city-break,
       .spotlight,
       .feature-list,
-      .gemini-grid {
+      .gemini-grid,
+      .planner-grid,
+      .souvenir-grid {
         grid-template-columns: 1fr;
       }
 
@@ -936,14 +1071,14 @@
       </nav>
 
       <section class="hero-content" id="top">
-        <div class="eyebrow"><i data-lucide="sparkles"></i>30歲雙子座甜美女子・美食・景點・互動地圖</div>
-        <h1>大阪京都甜美玩食地圖</h1>
-        <p class="hero-copy">把「變化感、好拍照、甜點補給、勝運祈願、夜景收尾」放進同一份行程，適合 30 歲、雙子座、愛漂亮也愛新鮮感的女生玩。</p>
+        <div class="eyebrow"><i data-lucide="sparkles"></i>2026/5/31（日）・雙子座・30歲生日慶祝</div>
+        <h1>大阪京都七天生日玩食地圖</h1>
+        <p class="hero-copy">把「甜美拍照、勝運祈願、生日儀式、抹茶甜點、夜景、伴手禮」排成 7 天，主角是 5/31 生日、30 歲、雙子座、愛漂亮也愛新鮮感的女生。</p>
         <div class="hero-stats" aria-label="行程摘要">
-          <div class="stat"><strong>8</strong><span>個實用美食點</span></div>
-          <div class="stat"><strong>8</strong><span>個必玩景點</span></div>
-          <div class="stat"><strong>1</strong><span>張互動地圖</span></div>
-          <div class="stat"><strong>3日</strong><span>甜美女子行程</span></div>
+          <div class="stat"><strong>7天</strong><span>生日慶祝行程</span></div>
+          <div class="stat"><strong>5/31</strong><span>生日正日主線</span></div>
+          <div class="stat"><strong>滿版</strong><span>美食景點伴手禮</span></div>
+          <div class="stat"><strong>雙子座</strong><span>每天換場景</span></div>
         </div>
       </section>
     </div>
@@ -953,16 +1088,16 @@
     <div class="shell route-strip">
       <div class="panel route-summary">
         <span class="section-kicker"><i data-lucide="route"></i>推薦走法</span>
-        <h2>先許願、再拍照，晚上用甜點和夜景收尾</h2>
-        <p>雙子座行程不能單調：大阪安排勝尾寺達摩祈願、梅田夜景、道頓堀霓虹；京都東山直接串成清水寺、二年坂三年坂、八坂神社、祇園一路步行，再穿插抹茶與市場小食。</p>
+        <h2>七天都要有主題，5/31 做成生日正日</h2>
+        <p>雙子座行程不能單調：大阪安排勝尾寺達摩祈願、USJ 角色生日、梅田夜景、道頓堀霓虹；京都東山直接串成清水寺、二年坂三年坂、八坂神社、祇園一路步行，再補 Uji 抹茶、嵐山與伴手禮採買。</p>
         <div class="route-days">
           <div class="route-day">
-            <strong><i data-lucide="train-front"></i>大阪半日線</strong>
-            <small>勝尾寺 → 梅田藍天大廈 → 道頓堀 → わなか / 味乃家 / Rikuro</small>
+            <strong><i data-lucide="train-front"></i>大阪生日線</strong>
+            <small>USJ / 勝尾寺 → 梅田藍天大廈 → 道頓堀 → Rikuro / 551 / 藥妝伴手</small>
           </div>
           <div class="route-day">
-            <strong><i data-lucide="leaf"></i>京都半日線</strong>
-            <small>清水寺 → 二年坂三年坂 → 八坂神社 → 祇園 → 錦市場 / 抹茶甜點</small>
+            <strong><i data-lucide="leaf"></i>京都甜美線</strong>
+            <small>清水寺 → 二年坂三年坂 → 八坂神社 → 祇園 → 錦市場 → Uji 抹茶伴手</small>
           </div>
         </div>
       </div>
@@ -970,7 +1105,7 @@
       <aside class="panel smart-note" aria-label="旅行提醒">
         <div class="note-row">
           <b>雙子座玩法</b>
-          <span>每半天安排一個「主場景」加一個甜點/小吃，不做寺社連發，保持新鮮感。</span>
+          <span>每天安排一個「拍照主場景」加一個「甜點/伴手禮任務」，不做同類景點連發。</span>
         </div>
         <div class="note-row">
           <b>女生友善</b>
@@ -1026,11 +1161,26 @@
       </div>
     </section>
 
+    <section class="panel birthday-board" id="birthday-plan" aria-labelledby="birthday-title">
+      <span class="section-kicker"><i data-lucide="cake"></i>7-Day Birthday Route</span>
+      <h2 id="birthday-title">5/31 雙子座甜美女子 30 歲生日七天行程</h2>
+      <p class="section-lead">以 2026/5/31（日）為生日正日設計，建議排 5/28-6/3。正日若想夢幻熱鬧就放 USJ；若想更成熟浪漫，就把 USJ 改到 Day 6，正日走勝尾寺 + 梅田夜景生日晚餐。</p>
+      <div class="birthday-grid">
+        <div class="birthday-day"><time>Day 1｜5/28</time><h3>抵達大阪</h3><p>難波安頓、道頓堀夜拍、先買起司蛋糕暖身。</p></div>
+        <div class="birthday-day"><time>Day 2｜5/29</time><h3>勝運祈願</h3><p>勝尾寺達摩任務、梅田夜景、生日願望預告。</p></div>
+        <div class="birthday-day"><time>Day 3｜5/30</time><h3>京都東山</h3><p>清水寺、八坂神社、祇園、抹茶甜點。</p></div>
+        <div class="birthday-day is-birthday"><time>Day 4｜5/31（日）</time><h3>生日正日</h3><p>USJ 角色慶生或梅田高空生日夜景二選一。</p></div>
+        <div class="birthday-day"><time>Day 5｜6/1</time><h3>嵐山慢拍</h3><p>竹林、渡月橋、咖啡與京都伴手禮。</p></div>
+        <div class="birthday-day"><time>Day 6｜6/2</time><h3>宇治抹茶</h3><p>平等院、宇治甜點、茶葉伴手禮採買。</p></div>
+        <div class="birthday-day"><time>Day 7｜6/3</time><h3>收尾補貨</h3><p>京都站/大阪站買伴手禮，最後一杯茶或蛋糕。</p></div>
+      </div>
+    </section>
+
     <section id="attractions" aria-labelledby="attractions-title">
       <div class="toolbar">
         <div>
           <span class="section-kicker"><i data-lucide="sparkles"></i>Sweet Gemini Spots</span>
-          <h2 id="attractions-title">8 個適合 30 歲雙子座甜美女子的景點</h2>
+          <h2 id="attractions-title">12 個適合 30 歲雙子座甜美女子的景點</h2>
           <p class="section-lead">節奏設計成「祈願、拍照、散步、購物、夜景」輪替，避免一整天都在看同類景點。</p>
         </div>
       </div>
@@ -1069,45 +1219,27 @@
 
     <section class="panel gemini-panel" aria-labelledby="gemini-title">
       <span class="section-kicker"><i data-lucide="stars"></i>Gemini 30</span>
-      <h2 id="gemini-title">3 天甜美女子行程</h2>
-      <p class="section-lead">核心邏輯：早上拍乾淨照片，中午吃好吃的，下午換場景，晚上用夜景或甜點收尾。行李與鞋子要以好走為主。</p>
-      <div class="gemini-grid">
-        <div class="gemini-day">
-          <span class="section-kicker"><i data-lucide="sun"></i>Day 1 Osaka</span>
-          <h3>勝運祈願 + 難波夜拍</h3>
-          <ul class="timeline">
-            <li><time>09:00</time><div><strong>勝尾寺</strong><span>達摩任務、山林拍照、買御守。</span></div></li>
-            <li><time>15:30</time><div><strong>梅田藍天大廈</strong><span>夕陽到夜景，裙裝拍照最亮。</span></div></li>
-            <li><time>19:00</time><div><strong>道頓堀 + 難波美食</strong><span>章魚燒、大阪燒、起司蛋糕收尾。</span></div></li>
-          </ul>
-        </div>
-        <div class="gemini-day">
-          <span class="section-kicker"><i data-lucide="camera"></i>Day 2 Kyoto East</span>
-          <h3>清水寺一路走到八坂神社</h3>
-          <ul class="timeline">
-            <li><time>08:30</time><div><strong>清水寺</strong><span>早到避人潮，二年坂三年坂慢拍。</span></div></li>
-            <li><time>10:15</time><div><strong>二年坂三年坂 → 八坂神社</strong><span>順坡道一路玩到祇園口，八坂神社不用另外折返。</span></div></li>
-            <li><time>12:30</time><div><strong>祇園 / 河原町 / 錦市場</strong><span>午餐小食巡禮，再補 MACCHA HOUSE。</span></div></li>
-            <li><time>16:30</time><div><strong>花見小路 + 茶寮都路里</strong><span>傍晚光線柔，甜點後可回八坂神社看夜燈。</span></div></li>
-          </ul>
-        </div>
-        <div class="gemini-day">
-          <span class="section-kicker"><i data-lucide="leaf"></i>Day 3 Kyoto West</span>
-          <h3>鳥居、竹林與藝術夜</h3>
-          <ul class="timeline">
-            <li><time>07:30</time><div><strong>伏見稻荷</strong><span>早起拍千本鳥居，人少畫面乾淨。</span></div></li>
-            <li><time>11:30</time><div><strong>嵐山</strong><span>竹林、渡月橋、咖啡散步，不把行程塞滿。</span></div></li>
-            <li><time>19:00</time><div><strong>teamLab 大阪長居</strong><span>想要更夢幻的收尾，就排夜間光影展。</span></div></li>
-          </ul>
+      <h2 id="gemini-title">七天詳細節奏：每天都有拍照、美食與伴手禮任務</h2>
+      <p class="section-lead">核心邏輯：早上拍乾淨照片，中午吃好吃的，下午換場景，晚上用夜景或甜點收尾。5/31 是星期日，熱門點一定要提前買票或避開最擠時段。</p>
+      <div class="planner-grid" id="planner-grid"></div>
+    </section>
+
+    <section id="souvenirs" aria-labelledby="souvenir-title">
+      <div class="toolbar">
+        <div>
+          <span class="section-kicker"><i data-lucide="shopping-bag"></i>Souvenirs</span>
+          <h2 id="souvenir-title">生日旅行伴手禮補貨清單</h2>
+          <p class="section-lead">以「好分送、外型漂亮、行李不太麻煩」排序，最後一天可在京都站或大阪難波集中補貨。</p>
         </div>
       </div>
+      <div class="souvenir-grid" id="souvenir-grid"></div>
     </section>
 
     <section id="food-cards" aria-labelledby="cards-title">
       <div class="toolbar">
         <div>
           <span class="section-kicker"><i data-lucide="camera"></i>Real Photos</span>
-          <h2 id="cards-title">8 個女生旅行友善美食點</h2>
+          <h2 id="cards-title">13 個生日旅行友善美食點</h2>
           <p class="section-lead">照片為實拍圖或店家/餐點圖片；部分餐點圖為同類餐點參考，店名與地址仍以卡片資料為準。</p>
         </div>
       </div>
@@ -1128,13 +1260,21 @@
       <a href="https://www.gltjp.com/en/directory/item/13393/" target="_blank" rel="noopener">わなか千日前本店資訊</a>。
       景點資訊參考
       <a href="https://katsuo-ji-temple.or.jp/" target="_blank" rel="noopener">勝尾寺官方網站</a>、
+      <a href="https://www.usj.co.jp/web/en/us/" target="_blank" rel="noopener">Universal Studios Japan 官方網站</a>、
       <a href="https://www.kiyomizudera.or.jp/" target="_blank" rel="noopener">清水寺官方網站</a>、
       <a href="https://www.yasaka-jinja.or.jp/access/" target="_blank" rel="noopener">八坂神社官方網站</a>、
       <a href="https://inari.jp/" target="_blank" rel="noopener">伏見稻荷大社官方網站</a>、
+      <a href="https://www.byodoin.or.jp/en/" target="_blank" rel="noopener">平等院官方網站</a>、
       <a href="https://www.skybldg.co.jp/" target="_blank" rel="noopener">梅田藍天大廈官方網站</a>、
       <a href="https://www.teamlab.art/e/botanicalgarden/" target="_blank" rel="noopener">teamLab Botanical Garden Osaka</a>、
       <a href="https://osaka-info.jp/en/" target="_blank" rel="noopener">大阪官方觀光資訊</a>、
       <a href="https://kyoto.travel/en/" target="_blank" rel="noopener">京都官方觀光資訊</a>。
+      伴手禮與新增美食參考
+      <a href="https://kuromon.com/" target="_blank" rel="noopener">黑門市場</a>、
+      <a href="https://www.kushikatu-daruma.com/" target="_blank" rel="noopener">串カツだるま</a>、
+      <a href="https://www.kyoto-ramen-koji.com/english/" target="_blank" rel="noopener">京都拉麵小路</a>、
+      <a href="https://www.malebranche.co.jp/" target="_blank" rel="noopener">MALEBRANCHE</a>、
+      <a href="https://kyobaum.com/" target="_blank" rel="noopener">京都 Baum</a>。
       圖片包含 Wikimedia Commons、店家公開圖片與景點公開資訊圖片；互動地圖使用 OpenStreetMap 圖資。
     </section>
   </main>
@@ -1301,6 +1441,106 @@
         map: "https://www.google.com/maps/search/?api=1&query=Saryo%20Tsujiri%20Gion%20Main%20Store",
         official: "https://www.giontsujiri.co.jp/en/store/giontsujiri-honten/",
         source: "https://commons.wikimedia.org/wiki/File:KyotoTsujiri.jpg"
+      },
+      {
+        id: "kuromon",
+        city: "osaka",
+        cityLabel: "大阪",
+        name: "黑門市場",
+        zhName: "黑門市場海鮮小食",
+        type: "午餐小吃",
+        dish: "烤干貝、海鮮串、草莓大福、果汁",
+        why: "七天行程需要一餐可以邊逛邊吃，黑門市場適合抵達後或離日前補充大阪小吃感。",
+        budget: "約 ¥1,500-¥4,000",
+        time: "中午前後最熱鬧，熱門攤位排隊較久",
+        address: "Nipponbashi, Chuo-ku, Osaka",
+        lat: 34.66535,
+        lng: 135.50698,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kuromon%20Ichiba%20Osaka.jpg?width=1200",
+        imageNote: "黑門市場實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Kuromon%20Ichiba%20Market%20Osaka",
+        official: "https://kuromon.com/",
+        source: "https://commons.wikimedia.org/wiki/File:Kuromon_Ichiba_Osaka.jpg"
+      },
+      {
+        id: "kushikatsu",
+        city: "osaka",
+        cityLabel: "大阪",
+        name: "新世界 串カツ",
+        zhName: "新世界炸串",
+        type: "大阪晚餐",
+        dish: "炸牛串、蝦串、蓮藕、紅薑炸串",
+        why: "比正式餐廳更有大阪感，適合生日週裡安排一晚熱鬧分食。",
+        budget: "約 ¥1,500-¥3,000",
+        time: "晚餐尖峰會排，建議 17:30 前抵達",
+        address: "Shinsekai, Naniwa-ku, Osaka",
+        lat: 34.65250,
+        lng: 135.50630,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kushikatsu%20-%20Shinsekai%20%2828289215848%29.jpg?width=1200",
+        imageNote: "新世界炸串實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Shinsekai%20kushikatsu%20Osaka",
+        official: "https://www.kushikatu-daruma.com/",
+        source: "https://commons.wikimedia.org/wiki/File:Kushikatsu_-_Shinsekai_(28289215848).jpg"
+      },
+      {
+        id: "kyoto-ramen",
+        city: "kyoto",
+        cityLabel: "京都",
+        name: "京都站拉麵小路",
+        zhName: "京都站拉麵小路",
+        type: "雨天備案",
+        dish: "醬油拉麵、雞白湯、味噌拉麵",
+        why: "如果天氣不好或行程累了，京都站內就能解決晚餐，還能順手買伴手禮。",
+        budget: "約 ¥1,000-¥1,800",
+        time: "晚餐時段排隊，先選 2 間備案",
+        address: "Kyoto Station Building 10F, Shimogyo-ku, Kyoto",
+        lat: 34.98586,
+        lng: 135.75878,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Ramen.jpeg?width=1200",
+        imageNote: "京都車站拉麵實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Kyoto%20Station%20Ramen%20Street",
+        official: "https://www.kyoto-ramen-koji.com/english/",
+        source: "https://commons.wikimedia.org/wiki/File:Ramen.jpeg"
+      },
+      {
+        id: "uji-matcha",
+        city: "kyoto",
+        cityLabel: "京都",
+        name: "宇治抹茶甜點",
+        zhName: "宇治抹茶甜點巡禮",
+        type: "抹茶日",
+        dish: "抹茶聖代、抹茶蕎麥、焙茶甜點",
+        why: "宇治是七天裡最適合安排成熟甜美慢步調的一天，抹茶伴手禮也最好買。",
+        budget: "約 ¥1,000-¥2,500",
+        time: "午後甜點店較擠，先吃正餐再排甜點",
+        address: "Uji, Kyoto",
+        lat: 34.89045,
+        lng: 135.80663,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese%20cake%20and%20green%20tea.jpg?width=1200",
+        imageNote: "京都抹茶與和菓子實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Uji%20matcha%20dessert%20Kyoto",
+        official: "https://www.kyoto-uji-kankou.or.jp/",
+        source: "https://commons.wikimedia.org/wiki/File:Japanese_cake_and_green_tea.jpg"
+      },
+      {
+        id: "kyoto-cafe",
+        city: "kyoto",
+        cityLabel: "京都",
+        name: "京都甜美咖啡備案",
+        zhName: "京都咖啡甜點時間",
+        type: "下午休息",
+        dish: "抹茶拿鐵、和風甜點、咖啡",
+        why: "七天行程一定要安排可坐下來補妝、聊天、整理照片的咖啡時間。",
+        budget: "約 ¥800-¥1,800",
+        time: "14:00-16:00 最容易滿席",
+        address: "Gion / Kawaramachi, Kyoto",
+        lat: 35.00488,
+        lng: 135.76934,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Matcha%20latte.jpg?width=1200",
+        imageNote: "京都抹茶拿鐵實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Kyoto%20Gion%20matcha%20cafe",
+        official: "https://kyoto.travel/en/",
+        source: "https://commons.wikimedia.org/wiki/File:Matcha_latte.jpg"
       }
     ];
 
@@ -1440,7 +1680,174 @@
         image: "https://commons.wikimedia.org/wiki/Special:FilePath/Hanamikoji-dori.jpg?width=1200",
         map: "https://www.google.com/maps/search/?api=1&query=Yasaka%20Shrine%20Kyoto",
         official: "https://www.yasaka-jinja.or.jp/access/"
+      },
+      {
+        id: "usj",
+        city: "osaka",
+        cityLabel: "大阪",
+        category: "生日正日",
+        name: "Universal Studios Japan",
+        subtitle: "角色慶生、拍照、雙子座高能量日",
+        intro: "如果她喜歡可愛角色與熱鬧氣氛，USJ 很適合放在 5/31 生日正日，整天都有主題感。",
+        must: "準備生日髮箍或緞帶，先拍入口地球與角色區；想進 Super Nintendo World 需留意 Area Timed Entry 或 Express Pass。",
+        attention: "2026/5/31 是星期日，務必提前買 Studio Pass，入園後先用官方 App 抽/取整理券並確認當日營業時間。",
+        address: "2-1-33 Sakurajima, Konohana-ku, Osaka",
+        lat: 34.66544,
+        lng: 135.43234,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/UNIVERSAL%20STUDIOS%20JAPAN%20ENTRANCE.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Universal%20Studios%20Japan",
+        official: "https://www.usj.co.jp/web/en/us/"
+      },
+      {
+        id: "osaka-castle",
+        city: "osaka",
+        cityLabel: "大阪",
+        category: "城市經典",
+        name: "大阪城公園",
+        subtitle: "城堡、綠地、輕鬆拍照",
+        intro: "七天行程需要一個不太累的城市綠地，大阪城適合放在抵達後或離日前半天。",
+        must: "拍天守閣與護城河，接森之宮咖啡或心齋橋購物。",
+        attention: "天守閣內部要排隊與購票；只想拍照可走公園外圈，不必硬塞博物館。",
+        address: "1-1 Osakajo, Chuo-ku, Osaka",
+        lat: 34.68732,
+        lng: 135.52586,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/20180331%20Osaka%20castle%20with%20cherry%20blom.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Osaka%20Castle%20Park",
+        official: "https://www.osakacastle.net/"
+      },
+      {
+        id: "uji",
+        city: "kyoto",
+        cityLabel: "京都",
+        category: "抹茶日",
+        name: "宇治平等院 + 宇治茶街",
+        subtitle: "抹茶、鳳凰堂、成熟甜美感",
+        intro: "宇治適合當七天裡的慢節奏甜點日，平等院拍照、茶街買抹茶伴手禮。",
+        must: "早上拍平等院鳳凰堂，中午吃抹茶蕎麥或抹茶甜點，下午買茶葉和抹茶點心。",
+        attention: "鳳凰堂內部參觀常需現場排指定時段；抹茶名店午後容易排隊，先吃正餐再甜點。",
+        address: "116 Uji Renge, Uji, Kyoto",
+        lat: 34.88930,
+        lng: 135.80771,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Byodoin%20Phoenix%20Hall%20Uji%202009.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Byodoin%20Temple%20Uji",
+        official: "https://www.byodoin.or.jp/en/"
+      },
+      {
+        id: "kyoto-tower",
+        city: "kyoto",
+        cityLabel: "京都",
+        category: "收尾夜景",
+        name: "京都塔 / 京都站伴手禮區",
+        subtitle: "最後一晚補貨與夜景",
+        intro: "京都站最適合作為七天最後補貨點，京都塔夜景可以當離日前的輕鬆收尾。",
+        must: "先在京都站買抹茶、餅乾、糕點，再上京都塔或到車站空中徑拍夜景。",
+        attention: "伴手禮店打烊時間不同，離日前一天買最穩；易碎點心放隨身袋。",
+        address: "721-1 Higashishiokojicho, Shimogyo-ku, Kyoto",
+        lat: 34.98755,
+        lng: 135.75933,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kyoto%20Tower%20at%20Night.jpg?width=1200",
+        map: "https://www.google.com/maps/search/?api=1&query=Kyoto%20Tower",
+        official: "https://www.kyoto-tower.jp/"
       }
+    ];
+
+    const birthdayDays = [
+      {
+        date: "Day 1｜5/28",
+        title: "抵達大阪，先進入生日週",
+        icon: "plane",
+        badge: "Osaka warm-up",
+        flow: [
+          ["15:00", "難波/心齋橋入住", "飯店放行李，先買髮飾或生日小道具。"],
+          ["17:30", "道頓堀夜拍", "固力果、蟹道樂、戎橋，拍大阪第一組照片。"],
+          ["19:00", "味乃家 / わなか", "大阪燒與章魚燒分食，不要第一晚就排太硬。"],
+          ["20:30", "Rikuro 起司蛋糕", "買回飯店當生日週第一個甜點。"]
+        ]
+      },
+      {
+        date: "Day 2｜5/29",
+        title: "勝尾寺勝運祈願 + 梅田夜景",
+        icon: "trophy",
+        badge: "Daruma wish",
+        flow: [
+          ["08:30", "出發勝尾寺", "箕面萱野站轉巴士，達摩任務排早上最漂亮。"],
+          ["10:00", "勝尾寺", "買小達摩寫願望，拍紅色達摩與山林景。"],
+          ["15:30", "梅田購物", "Grand Front / LUCUA 補妝、逛衣服與生日小物。"],
+          ["18:30", "梅田藍天大廈", "夕陽到夜景，適合 30 歲生日成熟感照片。"]
+        ]
+      },
+      {
+        date: "Day 3｜5/30",
+        title: "京都東山甜美散步",
+        icon: "camera",
+        badge: "Kyoto classic",
+        flow: [
+          ["08:30", "清水寺", "早到拍清水舞台，避開旅行團主峰。"],
+          ["10:15", "二年坂三年坂 → 八坂神社", "順路下坡，不用把八坂神社拆成另一趟。"],
+          ["12:30", "祇園 / 河原町", "午餐後接 MACCHA HOUSE 或茶寮都路里。"],
+          ["16:30", "花見小路", "傍晚光線柔，注意私人道路與攝影限制。"]
+        ]
+      },
+      {
+        date: "Day 4｜5/31（日）",
+        title: "生日正日：USJ 角色慶生",
+        icon: "cake",
+        badge: "30th Birthday",
+        birthday: true,
+        flow: [
+          ["07:00", "USJ 提早到", "星期日人多，官方 App、門票、整理券先準備好。"],
+          ["09:00", "Super Nintendo World / 角色區", "先排最想拍的主題區，生日髮箍直接戴起來。"],
+          ["13:00", "園區午餐與甜點", "不追求每個設施，重點是照片與生日氣氛。"],
+          ["19:30", "回大阪市區生日晚餐", "想成熟版就接梅田/難波蛋糕與夜景。"]
+        ]
+      },
+      {
+        date: "Day 5｜6/1",
+        title: "嵐山慢拍與京都咖啡",
+        icon: "leaf",
+        badge: "Slow pretty day",
+        flow: [
+          ["08:30", "嵐山竹林", "早點到，人少時畫面最乾淨。"],
+          ["10:30", "渡月橋", "河景散步，今天不塞太多寺社。"],
+          ["13:00", "嵐山午餐 / 咖啡", "坐下來整理生日照片。"],
+          ["16:00", "京都站伴手禮", "先買耐放的餅乾、茶葉、抹茶點心。"]
+        ]
+      },
+      {
+        date: "Day 6｜6/2",
+        title: "伏見稻荷 + 宇治抹茶日",
+        icon: "badge-check",
+        badge: "Torii & matcha",
+        flow: [
+          ["07:30", "伏見稻荷", "早起拍鳥居，不一定要攻頂。"],
+          ["11:00", "宇治平等院", "鳳凰堂、宇治川、成熟甜美感路線。"],
+          ["13:00", "宇治抹茶甜點", "抹茶聖代、焙茶甜點、茶葉伴手禮。"],
+          ["17:00", "京都站拉麵小路", "回程在京都站吃晚餐，降低移動疲勞。"]
+        ]
+      },
+      {
+        date: "Day 7｜6/3",
+        title: "大阪補貨與離日前收尾",
+        icon: "shopping-bag",
+        badge: "Final haul",
+        flow: [
+          ["10:00", "黑門市場", "最後補水果、零食、海鮮小吃。"],
+          ["12:30", "心齋橋/難波", "藥妝、服飾、百貨伴手禮一次買齊。"],
+          ["15:00", "551 / Rikuro", "可帶上路的最後甜點與大阪味。"],
+          ["17:00", "機場或回飯店拿行李", "易碎伴手禮放隨身袋，不塞托運底部。"]
+        ]
+      }
+    ];
+
+    const souvenirs = [
+      { title: "Rikuro 起司蛋糕", city: "大阪", buy: "難波本店 / 大丸心齋橋等", tip: "適合自己吃或飯店慶生，離開前一天買最穩。", icon: "cake", url: "https://rikuro.co.jp/en/" },
+      { title: "551 蓬萊豚まん", city: "大阪", buy: "戎橋本店 / 車站店", tip: "熱食最有感，若要帶走先確認保存與加熱方式。", icon: "package", url: "https://www.551horai.co.jp/" },
+      { title: "一保堂茶葉", city: "京都", buy: "京都本店", tip: "送長輩或講究質感的人最穩，店員可協助選茶。", icon: "leaf", url: "https://global.ippodo-tea.co.jp/pages/store-kyoto" },
+      { title: "茶の菓 / 抹茶餅乾", city: "京都", buy: "京都站 ASTY / 百貨", tip: "體面、好分送、包裝漂亮，適合辦公室與朋友。", icon: "cookie", url: "https://www.malebranche.co.jp/" },
+      { title: "京都 Baum / 抹茶年輪蛋糕", city: "京都", buy: "京都站伴手禮區", tip: "外型有生日感，適合帶回家切蛋糕延續慶祝。", icon: "gift", url: "https://kyobaum.com/" },
+      { title: "宇治抹茶粉 / 焙茶", city: "京都宇治", buy: "宇治茶街", tip: "Day 6 買，茶葉比鮮食耐放，行李友善。", icon: "coffee", url: "https://www.kyoto-uji-kankou.or.jp/" },
+      { title: "勝尾寺達摩御守", city: "大阪箕面", buy: "勝尾寺境內", tip: "最符合生日主題，代表 30 歲新階段勝運。", icon: "trophy", url: "https://katsuo-ji-temple.or.jp/" },
+      { title: "USJ 生日角色小物", city: "大阪", buy: "USJ 園區商店", tip: "髮箍、鑰匙圈、角色餅乾都適合拍照兼留念。", icon: "sparkles", url: "https://www.usj.co.jp/web/en/us/" }
     ];
 
     const cityColors = {
@@ -1450,6 +1857,8 @@
 
     const cardsGrid = document.querySelector("#cards-grid");
     const attractionGrid = document.querySelector("#attraction-grid");
+    const plannerGrid = document.querySelector("#planner-grid");
+    const souvenirGrid = document.querySelector("#souvenir-grid");
     const mapList = document.querySelector("#map-list");
     const mapEntries = [
       ...attractions.map((item) => ({ ...item, kind: "spot", markerLabel: "S", detail: item.must })),
@@ -1526,6 +1935,37 @@
       `).join("");
     }
 
+    function renderPlanner() {
+      plannerGrid.innerHTML = birthdayDays.map((day) => `
+        <article class="planner-card${day.birthday ? " is-birthday" : ""}">
+          <span class="section-kicker"><i data-lucide="${day.icon}"></i>${day.date} / ${day.badge}</span>
+          <h3>${day.title}</h3>
+          <ul class="day-flow">
+            ${day.flow.map(([time, title, text]) => `
+              <li><time>${time}</time><div><b>${title}</b><span>${text}</span></div></li>
+            `).join("")}
+          </ul>
+        </article>
+      `).join("");
+    }
+
+    function renderSouvenirs() {
+      souvenirGrid.innerHTML = souvenirs.map((item) => `
+        <article class="souvenir-card">
+          <span class="section-kicker"><i data-lucide="${item.icon}"></i>${item.city}</span>
+          <h3>${item.title}</h3>
+          <div class="souvenir-meta">
+            <span><strong>買：</strong>${item.buy}</span>
+            <span><strong>提醒：</strong>${item.tip}</span>
+          </div>
+          <div class="card-actions" style="margin-top: 14px;">
+            <a class="action-link primary" href="${item.url}" target="_blank" rel="noopener"><i data-lucide="external-link"></i>來源</a>
+            <a class="action-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.city)}" target="_blank" rel="noopener"><i data-lucide="navigation"></i>地圖</a>
+          </div>
+        </article>
+      `).join("");
+    }
+
     function renderMapList() {
       mapList.innerHTML = mapEntries.map((item) => `
         <button class="map-item" type="button" data-city="${item.city}" data-id="${item.id}">
@@ -1537,6 +1977,8 @@
 
     renderCards();
     renderAttractions();
+    renderPlanner();
+    renderSouvenirs();
     renderMapList();
 
     const map = L.map("map", {
