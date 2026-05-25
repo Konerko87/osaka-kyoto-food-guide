@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>大阪京都女子旅美食地圖</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://commons.wikimedia.org">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQhxlK5Xqzyo5yA7UEib6hWFy1PFckr4=" crossorigin="">
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --ink: #23201f;
+      --muted: #6d6865;
+      --line: #ded8d1;
+      --paper: #fffaf3;
+      --panel: #ffffff;
+      --coral: #d85f50;
+      --rose: #f5aaa0;
+      --matcha: #5f7f50;
+      --tea: #d9b96e;
+      --river: #2f7894;
+      --shadow: 0 18px 45px rgba(36, 27, 20, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(216, 95, 80, .16), transparent 34rem),
+        linear-gradient(180deg, #fff7ec 0%, #f7f4ee 42%, #edf5f4 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 560px;
+      color: white;
+      overflow: hidden;
+      background: #1e1b1a;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(23, 20, 19, .88) 0%, rgba(23, 20, 19, .62) 43%, rgba(23, 20, 19, .18) 100%),
+        url("https://commons.wikimedia.org/wiki/Special:FilePath/D%C5%8Dtonbori%20Night%2C%20Osaka%2C%20Japan%20%2848959597706%29.jpg?width=1800") center / cover;
+      transform: scale(1.02);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 160px;
+      background: linear-gradient(0deg, #fff7ec 0%, rgba(255, 247, 236, 0) 100%);
+      pointer-events: none;
+    }
+
+    .nav {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--rose), var(--tea));
+      display: grid;
+      place-items: center;
+      color: #261d19;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .2);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill-button {
+      border: 1px solid rgba(255, 255, 255, .35);
+      color: white;
+      background: rgba(255, 255, 255, .12);
+      backdrop-filter: blur(10px);
+      border-radius: 999px;
+      padding: 9px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    .pill-button:hover {
+      background: rgba(255, 255, 255, .2);
+      transform: translateY(-1px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(760px, 100%);
+      padding: 76px 0 116px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      width: fit-content;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      backdrop-filter: blur(10px);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: .95;
+      letter-spacing: 0;
+      max-width: 820px;
+    }
+
+    .hero-copy {
+      color: rgba(255, 255, 255, .86);
+      font-size: clamp(17px, 2vw, 22px);
+      max-width: 640px;
+      margin: 0 0 28px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 10px;
+      max-width: 720px;
+    }
+
+    .stat {
+      min-height: 86px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      background: rgba(255, 255, 255, .13);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      color: rgba(255, 255, 255, .76);
+      font-size: 13px;
+    }
+
+    .intro-band {
+      position: relative;
+      z-index: 3;
+      margin-top: -64px;
+    }
+
+    .route-strip {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, .88);
+      border: 1px solid rgba(222, 216, 209, .78);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .route-summary {
+      padding: 24px;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--coral);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 8px 0 12px;
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .route-summary p,
+    .section-lead {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .route-days {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .route-day {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .route-day strong {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .route-day small {
+      display: block;
+      color: var(--muted);
+    }
+
+    .smart-note {
+      display: grid;
+      gap: 0;
+    }
+
+    .smart-note .note-row {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .smart-note .note-row:last-child {
+      border-bottom: 0;
+    }
+
+    .note-row b {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .note-row span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    main {
+      padding: 46px 0 64px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .72);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 9px 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .filter[aria-pressed="true"] {
+      color: white;
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr);
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 34px;
+    }
+
+    #map {
+      height: 560px;
+      min-height: 420px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      background: #dce7df;
+    }
+
+    .map-list {
+      display: grid;
+      gap: 10px;
+      max-height: 560px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .map-item {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .84);
+      border-radius: 8px;
+      padding: 14px;
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .map-item:hover,
+    .map-item.is-active {
+      transform: translateY(-1px);
+      border-color: rgba(216, 95, 80, .58);
+      background: #fff;
+    }
+
+    .map-item small {
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .map-item-title {
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+    }
+
+    .city-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      flex: 0 0 auto;
+    }
+
+    .city-dot.osaka {
+      background: var(--coral);
+    }
+
+    .city-dot.kyoto {
+      background: var(--matcha);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .food-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(39, 31, 26, .08);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .food-card.is-hidden,
+    .map-item.is-hidden {
+      display: none;
+    }
+
+    .photo-wrap {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #eee;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s ease;
+    }
+
+    .food-card:hover .photo-wrap img {
+      transform: scale(1.04);
+    }
+
+    .tag-row {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .tag {
+      color: white;
+      background: rgba(35, 32, 31, .78);
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 12px;
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .card-subtitle {
+      margin: -6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .highlight {
+      padding: 12px;
+      border-radius: 8px;
+      background: #fff6ea;
+      border: 1px solid #ead8bd;
+      color: #4a3830;
+      font-size: 14px;
+    }
+
+    .meta {
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .meta span {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .meta svg,
+    .section-kicker svg,
+    .pill-button svg,
+    .filter svg,
+    .route-day svg,
+    .card-actions svg {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      stroke-width: 2.2;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .action-link {
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      font-weight: 800;
+      background: #fff;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+    }
+
+    .action-link.primary {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .action-link:hover {
+      background: #f8eee1;
+      color: var(--ink);
+      border-color: #cfb99d;
+    }
+
+    .action-link.primary:hover {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: #fff;
+    }
+
+    .city-break {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 38px 0;
+    }
+
+    .mini-plan {
+      padding: 22px;
+    }
+
+    .mini-plan h3 {
+      margin: 8px 0 12px;
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .timeline {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline li {
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .timeline li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .timeline time {
+      font-weight: 900;
+      color: var(--coral);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timeline strong {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .timeline span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .credits {
+      margin-top: 36px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .credits a {
+      color: #7b3d32;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      color: var(--ink);
+    }
+
+    .popup-title {
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+
+    .popup-body {
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 210px;
+    }
+
+    .popup-link {
+      display: inline-flex;
+      margin-top: 8px;
+      color: var(--coral);
+      font-weight: 800;
+    }
+
+    @media (max-width: 1050px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        min-height: 620px;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(23, 20, 19, .84) 0%, rgba(23, 20, 19, .58) 62%, rgba(23, 20, 19, .25) 100%),
+          url("https://commons.wikimedia.org/wiki/Special:FilePath/D%C5%8Dtonbori%20Night%2C%20Osaka%2C%20Japan%20%2848959597706%29.jpg?width=1400") center / cover;
+      }
+
+      .nav {
+        align-items: flex-start;
+      }
+
+      .hero-content {
+        padding-top: 54px;
+      }
+
+      .hero-stats,
+      .route-strip,
+      .route-days,
+      .map-layout,
+      .city-break {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .filters {
+        justify-content: flex-start;
+      }
+
+      #map,
+      .map-list {
+        max-height: none;
+      }
+
+      #map {
+        height: 440px;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .shell {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .nav {
+        flex-direction: column;
+      }
+
+      .nav-actions {
+        justify-content: flex-start;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline li {
+        grid-template-columns: 62px 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .hero {
+        min-height: 360px;
+      }
+
+      .nav-actions,
+      .filters,
+      #map {
+        display: none;
+      }
+
+      .intro-band {
+        margin-top: 0;
+      }
+
+      .panel,
+      .food-card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .map-layout {
+        display: block;
+      }
+
+      .map-list {
+        grid-template-columns: repeat(2, 1fr);
+        display: grid;
+        max-height: none;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="shell">
+      <nav class="nav" aria-label="頁面操作">
+        <a class="brand" href="#top" aria-label="大阪京都美食地圖">
+          <span class="brand-mark"><i data-lucide="map-pin"></i></span>
+          <span>Osaka Kyoto Food Map</span>
+        </a>
+        <div class="nav-actions">
+          <a class="pill-button" href="#map-section"><i data-lucide="map"></i>看地圖</a>
+          <a class="pill-button" href="#food-cards"><i data-lucide="utensils"></i>看清單</a>
+          <button class="pill-button" type="button" onclick="window.print()"><i data-lucide="printer"></i>列印</button>
+        </div>
+      </nav>
+
+      <section class="hero-content" id="top">
+        <div class="eyebrow"><i data-lucide="sparkles"></i>女子旅友善・實景圖片・互動地圖</div>
+        <h1>大阪京都美食推薦地圖</h1>
+        <p class="hero-copy">把「逛街順路、好拍、可分食、排隊值得」放在前面，整理成大阪難波與京都河原町/祇園一條線就能吃完的 8 個點。</p>
+        <div class="hero-stats" aria-label="行程摘要">
+          <div class="stat"><strong>8</strong><span>個實用美食點</span></div>
+          <div class="stat"><strong>2</strong><span>條散步路線</span></div>
+          <div class="stat"><strong>1</strong><span>張互動地圖</span></div>
+          <div class="stat"><strong>¥700+</strong><span>小吃甜點起</span></div>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <section class="intro-band">
+    <div class="shell route-strip">
+      <div class="panel route-summary">
+        <span class="section-kicker"><i data-lucide="route"></i>推薦走法</span>
+        <h2>白天京都抹茶，晚上大阪難波</h2>
+        <p>京都適合安排成「茶舖、錦市場、河原町、祇園甜點」的慢走路線；大阪則集中在難波、千日前、戎橋筋，晚餐後還能拍道頓堀夜景。</p>
+        <div class="route-days">
+          <div class="route-day">
+            <strong><i data-lucide="train-front"></i>大阪半日線</strong>
+            <small>わなか章魚燒 → 味乃家大阪燒 → 551豚まん → Rikuro 起司蛋糕</small>
+          </div>
+          <div class="route-day">
+            <strong><i data-lucide="leaf"></i>京都半日線</strong>
+            <small>一保堂茶舖 → 錦市場 → MACCHA HOUSE → 祇園茶寮都路里</small>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel smart-note" aria-label="旅行提醒">
+        <div class="note-row">
+          <b>排隊策略</b>
+          <span>人氣店避開 12:00-13:30、18:00-19:30；甜點店下午人最多，開店或晚餐前較穩。</span>
+        </div>
+        <div class="note-row">
+          <b>女生友善</b>
+          <span>都選在車站、商店街、市場、觀光街區附近，夜間移動也以熱鬧區域為主。</span>
+        </div>
+        <div class="note-row">
+          <b>禮貌提醒</b>
+          <span>錦市場多數店家希望在店前食用，不邊走邊吃；熱門店營業時間出發前再查一次。</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="shell">
+    <section id="map-section" aria-labelledby="map-title">
+      <div class="toolbar">
+        <div>
+          <span class="section-kicker"><i data-lucide="map-pinned"></i>Map</span>
+          <h2 id="map-title">美食地圖</h2>
+          <p class="section-lead">點地圖或右側清單可定位店家；篩選後地圖會只顯示該城市。</p>
+        </div>
+        <div class="filters" aria-label="城市篩選">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true"><i data-lucide="layout-grid"></i>全部</button>
+          <button class="filter" type="button" data-filter="osaka" aria-pressed="false"><i data-lucide="waves"></i>大阪</button>
+          <button class="filter" type="button" data-filter="kyoto" aria-pressed="false"><i data-lucide="leaf"></i>京都</button>
+        </div>
+      </div>
+
+      <div class="map-layout">
+        <div id="map" role="img" aria-label="大阪京都美食互動地圖"></div>
+        <div class="map-list" id="map-list" aria-label="店家列表"></div>
+      </div>
+    </section>
+
+    <section class="city-break" aria-label="推薦行程">
+      <div class="panel mini-plan">
+        <span class="section-kicker"><i data-lucide="calendar-days"></i>Osaka</span>
+        <h3>大阪：難波小吃到甜點</h3>
+        <ul class="timeline">
+          <li><time>15:30</time><div><strong>わなか章魚燒</strong><span>先吃熱小吃，份量好分食。</span></div></li>
+          <li><time>17:00</time><div><strong>味乃家大阪燒</strong><span>當晚餐主菜，坐下來休息。</span></div></li>
+          <li><time>19:00</time><div><strong>551 + Rikuro</strong><span>豚まん外帶、起司蛋糕買回飯店。</span></div></li>
+        </ul>
+      </div>
+      <div class="panel mini-plan">
+        <span class="section-kicker"><i data-lucide="calendar-days"></i>Kyoto</span>
+        <h3>京都：茶香、市場與祇園</h3>
+        <ul class="timeline">
+          <li><time>10:30</time><div><strong>一保堂茶舖</strong><span>用抹茶和和菓子當開場。</span></div></li>
+          <li><time>12:00</time><div><strong>錦市場</strong><span>挑豆乳甜甜圈、玉子燒、漬物小食。</span></div></li>
+          <li><time>15:30</time><div><strong>MACCHA HOUSE / 都路里</strong><span>甜點收尾，再散步到祇園。</span></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="food-cards" aria-labelledby="cards-title">
+      <div class="toolbar">
+        <div>
+          <span class="section-kicker"><i data-lucide="camera"></i>Real Photos</span>
+          <h2 id="cards-title">8 個女生旅行友善美食點</h2>
+          <p class="section-lead">照片為實拍圖或店家/餐點圖片；部分餐點圖為同類餐點參考，店名與地址仍以卡片資料為準。</p>
+        </div>
+      </div>
+
+      <div class="cards-grid" id="cards-grid"></div>
+    </section>
+
+    <section class="credits" aria-label="來源">
+      <strong>資料與圖片來源：</strong>
+      店家資訊參考
+      <a href="https://ajinoya-okonomiyaki.com/en" target="_blank" rel="noopener">味乃家官方網站</a>、
+      <a href="https://rikuro.co.jp/en/" target="_blank" rel="noopener">Rikuro 官方網站</a>、
+      <a href="https://www.ebisubashi.or.jp/en/shop/21.html" target="_blank" rel="noopener">戎橋筋 551 蓬萊本店資訊</a>、
+      <a href="https://www.giontsujiri.co.jp/en/store/giontsujiri-honten/" target="_blank" rel="noopener">祇園辻利/茶寮都路里官方資訊</a>、
+      <a href="https://maccha-house.com/1174/en" target="_blank" rel="noopener">MACCHA HOUSE 官方資訊</a>、
+      <a href="https://global.ippodo-tea.co.jp/pages/store-kyoto" target="_blank" rel="noopener">一保堂茶舖官方資訊</a>、
+      <a href="https://www.kyoto-nishiki.or.jp/wp-content/themes/kyoto-nishiki/assets/pdf/nishiki-map_240414-en.pdf" target="_blank" rel="noopener">錦市場官方英文地圖/守則</a>、
+      <a href="https://www.gltjp.com/en/directory/item/13393/" target="_blank" rel="noopener">わなか千日前本店資訊</a>。
+      圖片包含 Wikimedia Commons 與店家公開圖片；互動地圖使用 OpenStreetMap 圖資。
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    const places = [
+      {
+        id: "wanaka",
+        city: "osaka",
+        cityLabel: "大阪",
+        name: "たこ焼道楽 わなか 千日前本店",
+        zhName: "わなか章魚燒",
+        type: "大阪小吃",
+        dish: "蔥美乃滋章魚燒、醬油口味",
+        why: "外酥內軟、可站著吃也能快速帶走，排隊流動快，適合當大阪第一口。",
+        budget: "約 ¥700-¥1,100",
+        time: "建議 15:00 後或晚餐前",
+        address: "11-19 Nanbasennichimae, Chuo Ward, Osaka",
+        lat: 34.66528,
+        lng: 135.50323,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Takoyaki%20cooked%20by%20Wanaka%20Sennichimae%20Main%20Shop.jpg?width=1200",
+        imageNote: "わなか千日前本店章魚燒實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Takoyaki%20Wanaka%20Sennichimae%20Osaka",
+        official: "https://takoyaki-wanaka.com/",
+        source: "https://commons.wikimedia.org/wiki/File:Takoyaki_cooked_by_Wanaka_Sennichimae_Main_Shop.jpg"
+      },
+      {
+        id: "ajinoya",
+        city: "osaka",
+        cityLabel: "大阪",
+        name: "味乃家 本店",
+        zhName: "味乃家大阪燒",
+        type: "晚餐主菜",
+        dish: "味乃家 Mix、豚玉、炒麵",
+        why: "店員代烤，坐下來吃鐵板料理不狼狽；難波逛街途中很順路。",
+        budget: "約 ¥1,500-¥2,800",
+        time: "晚餐尖峰要排，建議開店或 17:00 前",
+        address: "1-7-16 Namba, Chuo-ku, Osaka",
+        lat: 34.66702,
+        lng: 135.50173,
+        image: "https://ajinoya-okonomiyaki.com/img/toppage/slide/2001.jpg",
+        imageNote: "店家公開餐點圖",
+        map: "https://www.google.com/maps/search/?api=1&query=Ajinoya%20Honten%20Namba%20Osaka",
+        official: "https://ajinoya-okonomiyaki.com/en",
+        source: "https://ajinoya-okonomiyaki.com/en"
+      },
+      {
+        id: "551",
+        city: "osaka",
+        cityLabel: "大阪",
+        name: "551 蓬萊 戎橋本店",
+        zhName: "551 豚まん",
+        type: "外帶伴手",
+        dish: "豚まん、燒賣、冰棒",
+        why: "大阪定番伴手，熱熱吃最有感；回飯店前帶一盒，隔天早餐也方便。",
+        budget: "約 ¥500-¥1,500",
+        time: "外帶人潮快，晚上仍常排隊",
+        address: "3-6-3 Namba, Chuo-ku, Osaka",
+        lat: 34.66598,
+        lng: 135.50119,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Hourai%20butaman.jpg?width=1200",
+        imageNote: "551 蓬萊豚まん實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=551%20Horai%20Ebisubashi%20Main%20Store",
+        official: "https://www.551horai.co.jp/",
+        source: "https://commons.wikimedia.org/wiki/File:Hourai_butaman.jpg"
+      },
+      {
+        id: "rikuro",
+        city: "osaka",
+        cityLabel: "大阪",
+        name: "りくろーおじさんの店 なんば本店",
+        zhName: "Rikuro 起司蛋糕",
+        type: "甜點伴手",
+        dish: "現烤舒芙蕾起司蛋糕、2F 咖啡室限定甜點",
+        why: "剛出爐會晃動的蛋糕很有儀式感；買回飯店分食最剛好。",
+        budget: "約 ¥1,000-¥1,800",
+        time: "接近出爐時間會排，外帶比內用快",
+        address: "3-2-28 Namba, Chuo-ku, Osaka",
+        lat: 34.66556,
+        lng: 135.50155,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Souffl%C3%A9-style%20cheesecake%20001.jpg?width=1200",
+        imageNote: "りくろーおじさん起司蛋糕實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Rikuro%20Ojisan%20Namba%20Main%20Store",
+        official: "https://rikuro.co.jp/en/",
+        source: "https://commons.wikimedia.org/wiki/File:Souffl%C3%A9-style_cheesecake_001.jpg"
+      },
+      {
+        id: "ippodo",
+        city: "kyoto",
+        cityLabel: "京都",
+        name: "一保堂茶舖 京都本店 / 嘉木茶室",
+        zhName: "一保堂茶舖",
+        type: "京都茶時間",
+        dish: "抹茶、煎茶、和菓子茶席",
+        why: "老舖茶香穩，內用節奏安靜，適合早上用一杯茶把京都感打開。",
+        budget: "約 ¥900-¥2,000",
+        time: "上午較舒服，茶室最後點餐較早",
+        address: "52 Tokiwagi-cho, Nakagyo-ku, Kyoto",
+        lat: 35.01467,
+        lng: 135.76719,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese%20tea%20established%20shop%20by%20macglee%20in%20Kyoto.jpg?width=900",
+        imageNote: "一保堂茶舖外觀實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Ippodo%20Tea%20Kyoto%20Main%20Store",
+        official: "https://global.ippodo-tea.co.jp/pages/store-kyoto",
+        source: "https://commons.wikimedia.org/wiki/File:Japanese_tea_established_shop_by_macglee_in_Kyoto.jpg"
+      },
+      {
+        id: "nishiki",
+        city: "kyoto",
+        cityLabel: "京都",
+        name: "錦市場",
+        zhName: "錦市場小食巡禮",
+        type: "市場散步",
+        dish: "豆乳甜甜圈、玉子燒、漬物、海鮮小食",
+        why: "400 公尺商店街密度高，適合少量多樣；下雨也能逛。",
+        budget: "約 ¥500-¥2,500",
+        time: "多數店家約 10:00 後熱鬧，午餐尖峰擁擠",
+        address: "Nishikikoji-dori, Nakagyo-ku, Kyoto",
+        lat: 35.00504,
+        lng: 135.76495,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Nishiki%20Market%2C%20Kyoto%20%2853970899359%29.jpg?width=1200",
+        imageNote: "錦市場實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Nishiki%20Market%20Kyoto",
+        official: "https://www.kyoto-nishiki.or.jp/",
+        source: "https://commons.wikimedia.org/wiki/File:Nishiki_Market,_Kyoto_(53970899359).jpg"
+      },
+      {
+        id: "maccha",
+        city: "kyoto",
+        cityLabel: "京都",
+        name: "MACCHA HOUSE 京都河原町",
+        zhName: "MACCHA HOUSE 抹茶提拉米蘇",
+        type: "拍照甜點",
+        dish: "宇治抹茶提拉米蘇、抹茶聖代、抹茶拿鐵",
+        why: "木盒提拉米蘇辨識度高，河原町站旁邊，逛街間隔很好塞進去。",
+        budget: "約 ¥900-¥1,800",
+        time: "下午排隊機率高，開店或晚餐前較穩",
+        address: "382-2 Komeya-cho, Nakagyo-ku, Kyoto",
+        lat: 35.00401,
+        lng: 135.76853,
+        image: "https://maccha-house.com/1174/wp-content/uploads/sites/2/2022/11/PC_MACCHA-HOUSE-%E6%8A%B9%E8%8C%B6%E9%A4%A83-scaled.jpg",
+        imageNote: "店家公開抹茶甜點圖",
+        map: "https://www.google.com/maps/search/?api=1&query=MACCHA%20HOUSE%20Kyoto%20Kawaramachi",
+        official: "https://maccha-house.com/1174/en",
+        source: "https://maccha-house.com/1174/en"
+      },
+      {
+        id: "tsujiri",
+        city: "kyoto",
+        cityLabel: "京都",
+        name: "茶寮都路里 祇園本店",
+        zhName: "茶寮都路里抹茶聖代",
+        type: "祇園甜點",
+        dish: "都路里聖代、抹茶冰淇淋、焙茶甜點",
+        why: "祇園經典抹茶甜點，吃完可以接花見小路、八坂神社夜散步。",
+        budget: "約 ¥1,200-¥2,300",
+        time: "假日下午排隊明顯，晚餐前後較適合",
+        address: "573-3 Gionmachi Minamigawa, Higashiyama-ku, Kyoto",
+        lat: 35.00369,
+        lng: 135.77508,
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/KyotoTsujiri.jpg?width=900",
+        imageNote: "茶寮都路里聖代實拍",
+        map: "https://www.google.com/maps/search/?api=1&query=Saryo%20Tsujiri%20Gion%20Main%20Store",
+        official: "https://www.giontsujiri.co.jp/en/store/giontsujiri-honten/",
+        source: "https://commons.wikimedia.org/wiki/File:KyotoTsujiri.jpg"
+      }
+    ];
+
+    const cityColors = {
+      osaka: "#d85f50",
+      kyoto: "#5f7f50"
+    };
+
+    const cardsGrid = document.querySelector("#cards-grid");
+    const mapList = document.querySelector("#map-list");
+
+    function metaRow(icon, text) {
+      return `<span><i data-lucide="${icon}"></i>${text}</span>`;
+    }
+
+    function renderCards() {
+      cardsGrid.innerHTML = places.map((place) => `
+        <article class="food-card" data-city="${place.city}" id="card-${place.id}">
+          <div class="photo-wrap">
+            <img src="${place.image}" alt="${place.zhName}：${place.imageNote}" loading="lazy">
+            <div class="tag-row">
+              <span class="tag">${place.cityLabel}</span>
+              <span class="tag">${place.type}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>
+              <h3 class="card-title">${place.zhName}</h3>
+              <p class="card-subtitle">${place.name}</p>
+            </div>
+            <div class="highlight"><strong>必點：</strong>${place.dish}<br>${place.why}</div>
+            <div class="meta">
+              ${metaRow("wallet", place.budget)}
+              ${metaRow("clock", place.time)}
+              ${metaRow("map-pin", place.address)}
+            </div>
+            <div class="card-actions">
+              <a class="action-link primary" href="${place.map}" target="_blank" rel="noopener"><i data-lucide="navigation"></i>地圖</a>
+              <a class="action-link" href="${place.official}" target="_blank" rel="noopener"><i data-lucide="external-link"></i>官網</a>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderMapList() {
+      mapList.innerHTML = places.map((place) => `
+        <button class="map-item" type="button" data-city="${place.city}" data-id="${place.id}">
+          <span class="map-item-title"><span><span class="city-dot ${place.city}"></span> ${place.zhName}</span><i data-lucide="locate-fixed"></i></span>
+          <small>${place.type} / ${place.address}</small>
+        </button>
+      `).join("");
+    }
+
+    renderCards();
+    renderMapList();
+
+    const map = L.map("map", {
+      scrollWheelZoom: false
+    }).setView([34.84, 135.64], 10);
+
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    const markers = new Map();
+    const markerGroup = L.layerGroup().addTo(map);
+
+    function createMarker(place) {
+      const icon = L.divIcon({
+        className: "",
+        html: `<span style="display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:${cityColors[place.city]};color:white;border:2px solid white;box-shadow:0 8px 18px rgba(0,0,0,.25);font-weight:900;">${place.city === "osaka" ? "O" : "K"}</span>`,
+        iconSize: [28, 28],
+        iconAnchor: [14, 28],
+        popupAnchor: [0, -26]
+      });
+
+      const marker = L.marker([place.lat, place.lng], { icon })
+        .bindPopup(`
+          <div class="popup-title">${place.zhName}</div>
+          <div class="popup-body">${place.dish}<br>${place.address}</div>
+          <a class="popup-link" href="${place.map}" target="_blank" rel="noopener">Google Maps</a>
+        `);
+      marker.on("click", () => setActivePlace(place.id, false));
+      return marker;
+    }
+
+    places.forEach((place) => {
+      const marker = createMarker(place);
+      markers.set(place.id, marker);
+      markerGroup.addLayer(marker);
+    });
+
+    function visiblePlaces(filter) {
+      return filter === "all" ? places : places.filter((place) => place.city === filter);
+    }
+
+    function fitMap(filter) {
+      const shown = visiblePlaces(filter);
+      const bounds = L.latLngBounds(shown.map((place) => [place.lat, place.lng]));
+      map.fitBounds(bounds, { padding: [42, 42], maxZoom: filter === "all" ? 10 : 14 });
+    }
+
+    function applyFilter(filter) {
+      document.querySelectorAll(".filter").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.filter === filter));
+      });
+
+      document.querySelectorAll(".food-card, .map-item").forEach((element) => {
+        const shouldShow = filter === "all" || element.dataset.city === filter;
+        element.classList.toggle("is-hidden", !shouldShow);
+      });
+
+      markerGroup.clearLayers();
+      visiblePlaces(filter).forEach((place) => markerGroup.addLayer(markers.get(place.id)));
+      fitMap(filter);
+    }
+
+    function setActivePlace(id, pan = true) {
+      document.querySelectorAll(".map-item").forEach((item) => {
+        item.classList.toggle("is-active", item.dataset.id === id);
+      });
+      const place = places.find((item) => item.id === id);
+      const marker = markers.get(id);
+      if (!place || !marker) return;
+      if (pan) map.flyTo([place.lat, place.lng], 15, { duration: .65 });
+      marker.openPopup();
+    }
+
+    document.querySelectorAll(".filter").forEach((button) => {
+      button.addEventListener("click", () => applyFilter(button.dataset.filter));
+    });
+
+    document.querySelectorAll(".map-item").forEach((item) => {
+      item.addEventListener("click", () => setActivePlace(item.dataset.id));
+    });
+
+    fitMap("all");
+    setActivePlace("wanaka", false);
+    lucide.createIcons();
+  </script>
+</body>
+</html>
