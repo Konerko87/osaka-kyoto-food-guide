@@ -88,7 +88,8 @@
     .kicker,
     .card-meta span,
     .filter,
-    .rank-label {
+    .rank-label,
+    .detail-hint {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -370,10 +371,16 @@
       display: flex;
       flex-direction: column;
       min-width: 0;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
     .item.is-hidden {
       display: none;
+    }
+
+    .item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(39, 31, 26, .12);
     }
 
     .thumb {
@@ -452,6 +459,17 @@
       font-size: 14px;
     }
 
+    .detail-hint {
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #7c3c42;
+      background: #fff4f3;
+      border: 1px solid #efd1d0;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
     .card-meta {
       display: grid;
       gap: 8px;
@@ -461,7 +479,7 @@
 
     .actions {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.15fr 1fr 1fr;
       gap: 8px;
       margin-top: auto;
     }
@@ -477,6 +495,7 @@
       background: #fff;
       font-size: 14px;
       font-weight: 900;
+      cursor: pointer;
     }
 
     .action.primary {
@@ -490,6 +509,185 @@
       height: 16px;
       flex: 0 0 auto;
       stroke-width: 2.2;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal[hidden] {
+      display: none;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(23, 20, 18, .68);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-dialog {
+      position: relative;
+      width: min(1060px, 100%);
+      max-height: min(88vh, 920px);
+      overflow: auto;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 28px 70px rgba(20, 16, 14, .34);
+    }
+
+    .modal-close {
+      position: absolute;
+      z-index: 2;
+      top: 12px;
+      right: 12px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .45);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(30, 25, 23, .68);
+      cursor: pointer;
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      min-height: 520px;
+    }
+
+    .detail-hero {
+      position: relative;
+      min-height: 520px;
+      background: #eee;
+    }
+
+    .detail-hero img {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      object-fit: cover;
+    }
+
+    .detail-hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 48%;
+      background: linear-gradient(0deg, rgba(25, 20, 18, .82), rgba(25, 20, 18, 0));
+      pointer-events: none;
+    }
+
+    .detail-hero-text {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      z-index: 1;
+      color: #fff;
+    }
+
+    .detail-hero-text h2 {
+      margin: 8px 0;
+      color: #fff;
+      font-size: clamp(28px, 4vw, 44px);
+    }
+
+    .detail-content {
+      padding: 28px;
+    }
+
+    .detail-content .lead {
+      margin-bottom: 18px;
+    }
+
+    .detail-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .detail-meta div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fffaf4;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .detail-meta b {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .product-card {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .product-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .product-body h3 {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.2;
+    }
+
+    .product-body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .buy-link {
+      width: fit-content;
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: #fff;
+      background: var(--berry);
+      font-size: 13px;
+      font-weight: 900;
     }
 
     .credits {
@@ -562,6 +760,21 @@
       .actions {
         grid-template-columns: 1fr;
       }
+
+      .detail-layout,
+      .detail-meta,
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-hero,
+      .detail-hero img {
+        min-height: 360px;
+      }
+
+      .detail-content {
+        padding: 22px;
+      }
     }
   </style>
 </head>
@@ -586,7 +799,7 @@
         <p class="hero-copy">給 30 歲甜美雙子女的「好吃、好穿、好送、好拍」關西三城購物版。雙子座要變化感，所以每城都安排美食、衣服穿搭、伴手禮三種任務。</p>
         <div class="hero-stats">
           <div class="stat"><strong>3城</strong><span>大阪京都神戶</span></div>
-          <div class="stat"><strong>24</strong><span>必買商品/店鋪</span></div>
+          <div class="stat"><strong>48+</strong><span>可買商品圖</span></div>
           <div class="stat"><strong>3類</strong><span>美食 衣服 伴手禮</span></div>
           <div class="stat"><strong>甜美</strong><span>30歲雙子女取向</span></div>
         </div>
@@ -599,7 +812,7 @@
       <div class="panel summary">
         <span class="kicker"><i data-lucide="route"></i>Shopping Strategy</span>
         <h2>不要亂買，照城市個性買</h2>
-        <p class="lead">大阪負責熱鬧、實用與流行；京都負責質感、抹茶與和風設計；神戶負責洋菓子、港都甜美與小女人穿搭。每張卡都有商品縮圖、必買、購買地點與注意事項。</p>
+        <p class="lead">大阪負責熱鬧、實用與流行；京都負責質感、抹茶與和風設計；神戶負責洋菓子、港都甜美與小女人穿搭。每張卡都能點「看商品」，打開實際可買品項、商品圖、購買連結與挑選重點。</p>
         <div class="city-route">
           <div class="route-card"><b>大阪</b><span>Rikuro、551、gelato pique、Onitsuka Tiger，適合先買自用和生日拍照小物。</span></div>
           <div class="route-card"><b>京都</b><span>茶の菓、一保堂、京都 Baum、SOU・SOU，適合買有質感的送禮品。</span></div>
@@ -629,7 +842,7 @@
         <div>
           <span class="kicker"><i data-lucide="shopping-cart"></i>Buy List</span>
           <h2 id="list-title">大阪京都神戶必買清單</h2>
-          <p class="lead">先用城市或類別篩選，再點商品卡的官網與地圖。</p>
+          <p class="lead">先用城市或類別篩選，再點「看商品」打開詳細商品圖；需要現場買的項目保留地圖，能線上先看的項目放官方/購買連結。</p>
         </div>
         <div class="filters" aria-label="購物篩選">
           <button class="filter" type="button" data-filter="all" aria-pressed="true"><i data-lucide="layout-grid"></i>全部</button>
@@ -658,10 +871,44 @@
       <a href="https://frantz.co.jp/products.html" target="_blank" rel="noopener">Kobe Frantz</a>、
       <a href="https://www.morozoff.co.jp/products/pudding/" target="_blank" rel="noopener">Morozoff</a>、
       <a href="https://www.kobe-fugetsudo.co.jp/sweets/gaufres.html" target="_blank" rel="noopener">神戶風月堂</a>、
-      <a href="https://chesty.tv/" target="_blank" rel="noopener">Chesty</a>。
+      <a href="https://chesty.tv/" target="_blank" rel="noopener">Chesty</a>、
+      <a href="https://jp.rohto.com/rohto-lycee/eyedrop-glow/" target="_blank" rel="noopener">Rohto Lycee</a>、
+      <a href="https://lululun.com/" target="_blank" rel="noopener">LuLuLun</a>、
+      <a href="https://www.kao-kirei.com/jp/en/" target="_blank" rel="noopener">Kao</a>。
       部分市場/街區縮圖使用 Wikimedia Commons 實景照片。
     </section>
   </main>
+
+  <div class="modal" id="product-modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="關閉商品詳情"><i data-lucide="x"></i></button>
+      <div class="detail-layout">
+        <div class="detail-hero">
+          <img id="modal-image" src="" alt="">
+          <div class="detail-hero-text">
+            <span class="rank-label" id="modal-tag"></span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-subtitle"></div>
+          </div>
+        </div>
+        <div class="detail-content">
+          <span class="kicker"><i data-lucide="shopping-bag"></i>可以買這些</span>
+          <p class="lead" id="modal-why"></p>
+          <div class="detail-meta">
+            <div><b>去哪買</b><span id="modal-where"></span></div>
+            <div><b>注意</b><span id="modal-note"></span></div>
+          </div>
+          <div class="product-grid" id="modal-products"></div>
+          <div class="actions" style="margin-top: 16px;">
+            <a class="action primary" id="modal-map" href="#" target="_blank" rel="noopener"><i class="icon" data-lucide="navigation"></i>打開地圖</a>
+            <a class="action" id="modal-source" href="#" target="_blank" rel="noopener"><i class="icon" data-lucide="external-link"></i>官方來源</a>
+            <button class="action" type="button" data-close-modal><i class="icon" data-lucide="check"></i>看好了</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <script>
     const items = [
@@ -931,6 +1178,413 @@
       }
     ];
 
+    const productDetails = {
+      "Rikuro 起司蛋糕": [
+        {
+          name: "現烤起司蛋糕",
+          image: "https://rikuro.co.jp/img/en/img_cheesecake01.jpg",
+          buy: "https://www.rikuro.co.jp/products/",
+          buyLabel: "看商品",
+          note: "30 歲生日當晚回飯店切最有儀式感，現烤口感最佳。"
+        },
+        {
+          name: "Rikuro 甜點櫃其他小點",
+          image: "https://www.rikuro.co.jp/wordpress/wp-content/uploads/2013/08/products_topimg.jpg",
+          buy: "https://www.rikuro.co.jp/products/",
+          buyLabel: "看清單",
+          note: "如果蛋糕不好帶，可改買小包裝甜點補伴手禮。"
+        }
+      ],
+      "551HORAI 豚まん": [
+        {
+          name: "豚まん",
+          image: "https://www.551horai.co.jp/wp/wp-content/uploads/2019/06/butaman_pc-1.jpg",
+          buy: "https://www.551horai.co.jp/menu/butaman/",
+          buyLabel: "商品頁",
+          note: "大阪代表名物，適合當天現吃或回飯店宵夜。"
+        },
+        {
+          name: "燒賣 / 冰棒",
+          image: "https://www.551horai.co.jp/wp/wp-content/uploads/2019/06/shumai@2x.jpg",
+          buy: "https://www.551horai.co.jp/menu/",
+          buyLabel: "菜單",
+          note: "想多買一點可搭配燒賣；冰棒比較適合現場吃。"
+        }
+      ],
+      "黑門市場小食": [
+        {
+          name: "草莓大福",
+          image: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Ichigo_daifuku_001.jpg",
+          buy: "https://www.google.com/maps/search/?api=1&query=Kuromon%20Ichiba%20ichigo%20daifuku",
+          buyLabel: "找店",
+          note: "甜美系拍照最友善，適合邊逛邊買一顆。"
+        },
+        {
+          name: "烤干貝 / 海鮮串",
+          image: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Scallop-Sausages-DSC2415.jpg",
+          buy: "https://www.google.com/maps/search/?api=1&query=Kuromon%20Ichiba%20grilled%20scallop",
+          buyLabel: "找店",
+          note: "甜食中間穿插鹹食，行程比較不膩。"
+        }
+      ],
+      "gelato pique": [
+        {
+          name: "柔軟居家服套裝",
+          image: "https://www.lucua.jp/wp-content/uploads/2020/07/1-850.jpg",
+          buy: "https://www.lucua.jp/en/shopguide/id62_e.html",
+          buyLabel: "LUCUA 店鋪",
+          note: "生日旅行回飯店拍照最適合，優先挑奶油白、粉色或淡藍。"
+        },
+        {
+          name: "髮帶 / 襪子小物",
+          image: "https://www.lucua.jp/wp-content/uploads/2020/03/1-850.jpg",
+          buy: "https://www.lucua.jp/en/shopguide/id62_e.html",
+          buyLabel: "店鋪資訊",
+          note: "預算有限就買小物，甜美感夠、行李也不佔空間。"
+        }
+      ],
+      "Onitsuka Tiger": [
+        {
+          name: "MEXICO 66 奶油色系",
+          image: "https://media-ojp.onitsukatiger.com/media/wysiwyg/Megamenuimages/brands/251226_WEB-BRAND_YELLOW.jpg",
+          buy: "https://www.onitsukatiger.com/jp/en-gl/",
+          buyLabel: "官方",
+          note: "最適合甜美洋裝加休閒鞋，走路舒服又不失比例。"
+        },
+        {
+          name: "NIPPON MADE 系列",
+          image: "https://media-ojp.onitsukatiger.com/media/wysiwyg/Megamenuimages/featured/260515_featured_nipponmade.jpg",
+          buy: "https://www.onitsukatiger.com/jp/en-gl/",
+          buyLabel: "官方",
+          note: "30 歲紀念款可往高質感線挑，少買一雙但買好一點。"
+        }
+      ],
+      "Baton d'or / 百貨限定點心": [
+        {
+          name: "Baton d'or 奶油餅乾棒",
+          image: "https://www.glico.com/assets/images/original/batondor__2.png",
+          buy: "https://www.glico.com/jp/shopservice/batondorshop/",
+          buyLabel: "商品介紹",
+          note: "百貨限定感強，適合送同事朋友。"
+        },
+        {
+          name: "季節限定包裝",
+          image: "https://www.glico.com/jp/batondor/images/17_smp_top_slide01.jpg",
+          buy: "https://www.glico.com/jp/shopservice/batondor/",
+          buyLabel: "店鋪資訊",
+          note: "雙子女會喜歡限定口味，看到喜歡的包裝先買。"
+        }
+      ],
+      "MALEBRANCHE 茶の菓": [
+        {
+          name: "茶の菓 8枚入 / 10枚入",
+          image: "https://www.kyoto-quality.com/img/top/mv/newtop_mv_ck_pc.jpg",
+          buy: "https://www.kyoto-quality.com/ic/chanoka",
+          buyLabel: "購買頁",
+          note: "京都最穩送禮，抹茶感明確、包裝體面。"
+        },
+        {
+          name: "茶の菓 薄焼き / 限定款",
+          image: "https://www.kyoto-quality.com/img/top/mv/newtop_mv_cku_pc.jpg",
+          buy: "https://www.kyoto-quality.com/ic/chanoka-usuyaki",
+          buyLabel: "看款式",
+          note: "想讓禮盒有變化，可以加一盒不同口感。"
+        }
+      ],
+      "京都 Baum": [
+        {
+          name: "京ばあむ",
+          image: "https://kyobaum.com/assets/img/top/top-block05-img01_pc.png",
+          buy: "https://kyobaum.com/",
+          buyLabel: "官方",
+          note: "年輪蛋糕有慶祝感，適合生日延伸到回台灣。"
+        },
+        {
+          name: "京ばあむサブレ",
+          image: "https://kyobaum.com/assets/img/top/top-block05-img02_pc.png",
+          buy: "https://kyobaum.com/",
+          buyLabel: "看商品",
+          note: "比整條年輪蛋糕更好分送，行李壓力也小。"
+        }
+      ],
+      "一保堂茶舖": [
+        {
+          name: "Sayaka-no-mukashi 抹茶",
+          image: "https://global.ippodo-tea.co.jp/cdn/shop/files/01_84a0323f-afa8-4923-8fe8-60d4768010a5_640x.png?v=1758167352",
+          buy: "https://global.ippodo-tea.co.jp/collections/matcha/products/matcha5010331",
+          buyLabel: "購買頁",
+          note: "入門到進階都能接受，送懂茶的人也不失禮。"
+        },
+        {
+          name: "抹茶 / 煎茶禮品",
+          image: "https://global.ippodo-tea.co.jp/cdn/shop/collections/matcha-hero.png",
+          buy: "https://global.ippodo-tea.co.jp/collections/matcha",
+          buyLabel: "抹茶清單",
+          note: "不確定口味時，選小罐或茶包最保險。"
+        }
+      ],
+      "SOU・SOU": [
+        {
+          name: "足袋下 / 襪子",
+          image: "https://www.sousou.co.jp/cdn/shop/files/main_eco-tabishita2026.webp",
+          buy: "https://www.sousou.co.jp/",
+          buyLabel: "官方",
+          note: "最容易帶回家，也最有京都設計感。"
+        },
+        {
+          name: "手拭巾 / 小包圖案款",
+          image: "https://contents.sousou.co.jp/ichigoichie/wp-content/uploads/2026/04/tabinoyume1000_1.jpg",
+          buy: "https://www.sousou.co.jp/",
+          buyLabel: "官方",
+          note: "雙子座可挑活潑圖案，但主色保持低飽和更耐看。"
+        }
+      ],
+      "Yojiya よーじや": [
+        {
+          name: "吸油面紙",
+          image: "https://www.yojiya.co.jp/assets/images/oil-blotting-paper//img_brand_img.png",
+          buy: "https://www.yojiya.co.jp/en/oil-blotting-paper/",
+          buyLabel: "商品故事",
+          note: "小巧好送，化妝包裡也真的會用。"
+        },
+        {
+          name: "護手霜 / 補妝小物",
+          image: "https://www.yojiya.co.jp/assets/images/oil-blotting-paper/img_kv_pc.jpg",
+          buy: "https://www.yojiya.co.jp/en/",
+          buyLabel: "官方",
+          note: "送女生可把吸油面紙加護手霜組成小禮包。"
+        }
+      ],
+      "八ツ橋 / 生八ツ橋": [
+        {
+          name: "生八ツ橋 抹茶 / 肉桂",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Yatsuhashi%20002.jpg?width=1200",
+          buy: "https://shogoin.co.jp/",
+          buyLabel: "官方",
+          note: "京都感很明確，但保存期限要先看。"
+        },
+        {
+          name: "常溫餅乾版八ツ橋",
+          image: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Nama_Yatsuhashi_for_sale_in_Sakuranocho.jpg",
+          buy: "https://www.google.com/maps/search/?api=1&query=Yatsuhashi%20Kyoto%20Station",
+          buyLabel: "找店",
+          note: "如果要分送多人，常溫版比生八ツ橋更好安排。"
+        }
+      ],
+      "錦市場小食": [
+        {
+          name: "玉子燒",
+          image: "https://upload.wikimedia.org/wikipedia/commons/8/84/Tamago_yaki_a0.jpg",
+          buy: "https://www.google.com/maps/search/?api=1&query=Nishiki%20Market%20tamagoyaki",
+          buyLabel: "找店",
+          note: "鹹甜中和，逛市場時很適合一份兩人分。"
+        },
+        {
+          name: "漬物 / 七味小罐",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Nishiki%20Market%2C%20Kyoto%20%2853970899359%29.jpg?width=1200",
+          buy: "https://www.kyoto-nishiki.or.jp/",
+          buyLabel: "市場資訊",
+          note: "小罐調味料比濕食更好帶回台灣。"
+        }
+      ],
+      "Kobe Frantz": [
+        {
+          name: "神戶魔法壺布丁",
+          image: "https://frantz.co.jp/images/pic__products-01-thumb.jpg",
+          buy: "https://www.frantz.jp/fs/frantz/pudding-02-04",
+          buyLabel: "購買頁",
+          note: "紅盒和陶壺都很有記憶點，適合生日甜點。"
+        },
+        {
+          name: "神戶草莓松露",
+          image: "https://frantz.co.jp/images/pic__products-13-thumb.jpg",
+          buy: "https://frantz.co.jp/en/products.html",
+          buyLabel: "商品清單",
+          note: "比冷藏布丁更適合帶回台灣分送。"
+        }
+      ],
+      "Morozoff": [
+        {
+          name: "卡士達布丁 170g",
+          image: "https://www.morozoff.co.jp/i300p-regular-tanpin.jpg",
+          buy: "https://www.morozoff.co.jp/products/pudding/_170g/",
+          buyLabel: "商品頁",
+          note: "神戶經典，適合當地吃；玻璃杯不建議長途帶。"
+        },
+        {
+          name: "常溫餅乾 / 巧克力禮盒",
+          image: "https://www.morozoff.co.jp/cmn/img/img_ogp.jpg",
+          buy: "https://www.morozoff.co.jp/products/",
+          buyLabel: "商品清單",
+          note: "要帶回台灣送禮，常溫禮盒比布丁穩。"
+        }
+      ],
+      "神戶風月堂 Gaufres": [
+        {
+          name: "Gaufres 15S 鐵盒",
+          image: "https://www.kobe-fugetsudo.co.jp/img/sweets/gaufres/gaufres_15s.png",
+          buy: "https://www.kobe-fugetsudo.co.jp/sweets/gaufres.html",
+          buyLabel: "商品頁",
+          note: "老派可愛又穩重，適合送家人同事。"
+        },
+        {
+          name: "Gaufres 25S",
+          image: "https://www.kobe-fugetsudo.co.jp/img/sweets/gaufres/gaufres_25s.png",
+          buy: "https://www.kobe-fugetsudo.co.jp/sweets/gaufres.html",
+          buyLabel: "看規格",
+          note: "多人分送就買大盒，鐵盒防壓但比較佔重量。"
+        }
+      ],
+      "Chesty": [
+        {
+          name: "ミックスレースワンピース",
+          image: "https://chesty.tv/cdn/shop/files/0421_265074.png",
+          buy: "https://chesty.tv/products/25f503",
+          buyLabel: "購買頁",
+          note: "30 歲生日主角感很夠，適合拍照或餐廳行程。"
+        },
+        {
+          name: "Northern チュチュトップス",
+          image: "https://chesty.tv/cdn/shop/files/24N604-05F-2.jpg",
+          buy: "https://chesty.tv/products/24n604",
+          buyLabel: "購買頁",
+          note: "甜美但不太正式，回台灣也比較容易搭。"
+        }
+      ],
+      "神戶牛肉食小吃": [
+        {
+          name: "神戶牛壽司",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kobe%20Kobe%20Beef%202.jpg?width=1200",
+          buy: "https://www.google.com/maps/search/?api=1&query=Kobe%20beef%20sushi%20Motomachi",
+          buyLabel: "找店",
+          note: "現吃最適合，當作甜點行程中間的鹹食補位。"
+        },
+        {
+          name: "牛肉可樂餅類",
+          image: "https://upload.wikimedia.org/wikipedia/commons/5/57/Mixed_beef_croquette_lunch_of_Yoshinoya.jpg",
+          buy: "https://www.google.com/maps/search/?api=1&query=Kobe%20beef%20croquette%20Motomachi",
+          buyLabel: "找店",
+          note: "不要帶回飯店太久，現買現吃口感最好。"
+        }
+      ],
+      "神戶港限定小物": [
+        {
+          name: "港都明信片 / 小飾品",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kobe%20Port%20Tower%20and%20Harborland%20at%20night%2020190202-1.jpg?width=1200",
+          buy: "https://www.harborland.co.jp/",
+          buyLabel: "商場資訊",
+          note: "挑輕、小、能拍照的紀念品，不買大型擺飾。"
+        },
+        {
+          name: "Harborland 限定餅乾",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Kobe%20Port%20Tower%20and%20Harborland%20at%20night%2020190202-1.jpg?width=1200",
+          buy: "https://www.google.com/maps/search/?api=1&query=Kobe%20Harborland%20souvenir%20cookies",
+          buyLabel: "找店",
+          note: "限定包裝適合送人，先確認保存期限和盒子硬度。"
+        }
+      ],
+      "大阪藥妝甜美補貨": [
+        {
+          name: "Rohto Lycee 眼藥水",
+          image: "https://jp.rohto.com/-/media/com/rohto-lycee/eyedrop-glow/img_191321_01.jpg?sc_lang=ja-jp",
+          buy: "https://jp.rohto.com/rohto-lycee/eyedrop-glow/",
+          buyLabel: "商品頁",
+          note: "包裝甜美、體積小，適合放化妝包。"
+        },
+        {
+          name: "LuLuLun 面膜 / 髮品補貨",
+          image: "https://d2w53g1q050m78.cloudfront.net/lululuncom/uploads/ec_assets/menu/icon_precious_green_rn.png",
+          buy: "https://lululun.com/",
+          buyLabel: "官方",
+          note: "用得完的保養品優先，不要只因包裝可愛大量囤。"
+        }
+      ],
+      "京都和風小包 / 手拭巾": [
+        {
+          name: "手拭巾",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Souvenirs%20Shop%20in%20Kyoto%202013%20%2810628805104%29.jpg?width=1200",
+          buy: "https://www.google.com/maps/search/?api=1&query=Kyoto%20tenugui%20shop",
+          buyLabel: "找店",
+          note: "低飽和花色最耐看，回台灣可當髮帶或包巾。"
+        },
+        {
+          name: "口金包 / 小布包",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Souvenirs%20Shop%20in%20Kyoto%202013%20%2810628805104%29.jpg?width=1200",
+          buy: "https://www.google.com/maps/search/?api=1&query=Kyoto%20gamaguchi%20pouch",
+          buyLabel: "找店",
+          note: "小包要看拉鍊和縫線，不要只看圖案。"
+        }
+      ],
+      "LUCUA / Grand Front 甜美品牌巡禮": [
+        {
+          name: "LUCUA 4F 甜美服飾線",
+          image: "https://www.lucua.jp/wp-content/uploads/2020/02/Lucua_4F_en_20250228.png",
+          buy: "https://www.lucua.jp/en/",
+          buyLabel: "商場",
+          note: "先鎖定粉、白、淡藍，避免每間都亂試。"
+        },
+        {
+          name: "罩衫 / 髮飾 / 短外套",
+          image: "https://www.lucua.jp/wp-content/uploads/2020/03/1-850.jpg",
+          buy: "https://www.lucua.jp/en/shopguide/",
+          buyLabel: "店鋪清單",
+          note: "買能回台灣搭配的單品，比旅行限定造型更實用。"
+        }
+      ],
+      "Daimaru Kobe / Kobe BAL": [
+        {
+          name: "Daimaru 神戶質感小物",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Daimaru%20Department%20Kobe%20Store.jpg?width=1200",
+          buy: "https://www.daimaru.co.jp/kobe/",
+          buyLabel: "百貨",
+          note: "適合挑香氛、小皮件、飾品，不一定要買大件衣服。"
+        },
+        {
+          name: "舊居留地散步購物",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/The%20street%20in%20front%20of%20Daimaru%20Department%20Store%2C%20Kobe.jpg?width=1200",
+          buy: "https://www.google.com/maps/search/?api=1&query=Kobe%20Kyukyoryuchi%20shopping",
+          buyLabel: "地圖",
+          note: "神戶成熟感比大阪強，很適合 30 歲生日紀念。"
+        }
+      ],
+      "宇治抹茶點心": [
+        {
+          name: "宇治抹茶巧克力",
+          image: "https://upload.wikimedia.org/wikipedia/commons/5/50/KitKat_Uji_Matcha_chocolate.jpg",
+          buy: "https://www.google.com/maps/search/?api=1&query=Uji%20matcha%20chocolate%20souvenir",
+          buyLabel: "找店",
+          note: "分送方便，適合當最後補貨。"
+        },
+        {
+          name: "抹茶粉 / 焙茶點心",
+          image: "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese%20cake%20and%20green%20tea.jpg?width=1200",
+          buy: "https://www.kyoto-uji-kankou.or.jp/",
+          buyLabel: "宇治資訊",
+          note: "抹茶粉怕潮，買小包裝比較容易保存。"
+        }
+      ]
+    };
+
+    items.forEach((item, index) => {
+      item.id = index;
+      item.products = productDetails[item.name] || [
+        {
+          name: item.must.split("、")[0],
+          image: item.image,
+          buy: item.official,
+          buyLabel: "官方",
+          note: item.note
+        },
+        {
+          name: `${item.cityLabel}現地購買`,
+          image: item.image,
+          buy: item.map,
+          buyLabel: "地圖",
+          note: item.where
+        }
+      ];
+    });
+
     const categoryIcons = {
       food: "utensils",
       fashion: "shirt",
@@ -962,12 +1616,14 @@
             </div>
             <div class="must"><strong>必買：</strong>${item.must}</div>
             <div class="why">${item.why}</div>
+            <div class="detail-hint">${icon("images")}點看 ${item.products.length} 個可買商品圖</div>
             <div class="card-meta">
               <span>${icon("map-pin")}${item.where}</span>
               <span>${icon("triangle-alert")}${item.note}</span>
             </div>
             <div class="actions">
-              <a class="action primary" href="${item.map}" target="_blank" rel="noopener">${icon("navigation")}地圖</a>
+              <button class="action primary" type="button" data-detail-index="${item.id}">${icon("shopping-bag")}看商品</button>
+              <a class="action" href="${item.map}" target="_blank" rel="noopener">${icon("navigation")}地圖</a>
               <a class="action" href="${item.official}" target="_blank" rel="noopener">${icon("external-link")}來源</a>
             </div>
           </div>
@@ -983,6 +1639,7 @@
             <span class="rank-label">${icon(categoryIcons[item.cat])}TOP ${index + 1} / ${item.cityLabel}</span>
             <h3>${item.name}</h3>
             <div>${item.must}</div>
+            <button class="action primary" type="button" data-detail-index="${item.id}" style="margin-top: 12px;">${icon("shopping-bag")}看商品</button>
           </div>
         </article>
       `;
@@ -1002,6 +1659,71 @@
           item.classList.toggle("is-hidden", !show);
         });
       });
+    });
+
+    const modal = document.querySelector("#product-modal");
+    const modalImage = document.querySelector("#modal-image");
+    const modalTag = document.querySelector("#modal-tag");
+    const modalTitle = document.querySelector("#modal-title");
+    const modalSubtitle = document.querySelector("#modal-subtitle");
+    const modalWhy = document.querySelector("#modal-why");
+    const modalWhere = document.querySelector("#modal-where");
+    const modalNote = document.querySelector("#modal-note");
+    const modalProducts = document.querySelector("#modal-products");
+    const modalMap = document.querySelector("#modal-map");
+    const modalSource = document.querySelector("#modal-source");
+
+    function productCard(product) {
+      return `
+        <article class="product-card">
+          <img src="${product.image}" alt="${product.name} 商品圖" loading="eager" decoding="async">
+          <div class="product-body">
+            <h3>${product.name}</h3>
+            <p>${product.note}</p>
+            <a class="buy-link" href="${product.buy}" target="_blank" rel="noopener">${icon("external-link")}${product.buyLabel}</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function openDetail(item) {
+      modalImage.src = item.image;
+      modalImage.alt = `${item.name} 詳細圖片`;
+      modalTag.innerHTML = `${icon(categoryIcons[item.cat])}${item.cityLabel} / ${item.catLabel}`;
+      modalTitle.textContent = item.name;
+      modalSubtitle.textContent = item.subtitle;
+      modalWhy.textContent = item.why;
+      modalWhere.textContent = item.where;
+      modalNote.textContent = item.note;
+      modalMap.href = item.map;
+      modalSource.href = item.official;
+      modalProducts.innerHTML = item.products.map(productCard).join("");
+      modal.hidden = false;
+      document.body.classList.add("modal-open");
+      lucide.createIcons();
+    }
+
+    function closeDetail() {
+      modal.hidden = true;
+      document.body.classList.remove("modal-open");
+    }
+
+    document.addEventListener("click", (event) => {
+      const detailButton = event.target.closest("[data-detail-index]");
+      if (detailButton) {
+        openDetail(items[Number(detailButton.dataset.detailIndex)]);
+        return;
+      }
+
+      if (event.target.closest("[data-close-modal]")) {
+        closeDetail();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !modal.hidden) {
+        closeDetail();
+      }
     });
 
     lucide.createIcons();
